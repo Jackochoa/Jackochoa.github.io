@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "../globals.css";
+import { geologica, martianMono } from "../fonts";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jacksonochoa.page"),
@@ -24,5 +25,5 @@ const structuredData = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const umamiId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
   const umamiScript = process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL;
-  return <html lang="en"><body><a className="skip-link" href="#main-content">Skip to content</a>{children}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />{umamiId && umamiScript ? <Script src={umamiScript} data-website-id={umamiId} strategy="afterInteractive" /> : null}</body></html>;
+  return <html lang="en"><body className={`${geologica.variable} ${martianMono.variable}`}><a className="skip-link" href="#main-content">Skip to content</a>{children}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />{umamiId && umamiScript ? <Script src={umamiScript} data-website-id={umamiId} strategy="afterInteractive" /> : null}</body></html>;
 }
