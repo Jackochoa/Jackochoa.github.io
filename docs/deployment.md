@@ -16,10 +16,11 @@ Production is intentionally not activated by this local implementation. Before t
 2. Push the reviewed source to `main`.
 3. Verify `jacksonochoa.page` in GitHub account settings.
 4. In repository Settings → Pages, select GitHub Actions and add `jacksonochoa.page` as custom domain.
-5. At Name.com, set the four GitHub Pages apex `A` records for `@` and a `www` `CNAME` to `jackochoa.github.io`.
-6. Remove conflicting apex records and never add a wildcard record.
-7. Wait for DNS propagation, verify with `dig`, then enable Enforce HTTPS.
-8. Confirm both `https://jacksonochoa.page/` and `https://www.jacksonochoa.page/`; apex is canonical.
+5. Keep the checked-in `public/CNAME` file; the Pages artifact will carry the canonical apex domain.
+6. At Name.com, set the four GitHub Pages apex `A` records for `@` and a `www` `CNAME` to `jackochoa.github.io`.
+7. Remove conflicting apex records and never add a wildcard record.
+8. Wait for DNS propagation, verify with `dig`, then enable Enforce HTTPS.
+9. Confirm both `https://jacksonochoa.page/` and `https://www.jacksonochoa.page/`; apex is canonical.
 
 Do not change DNS before the domain is verified and the repository custom domain is configured. This avoids a custom-domain takeover window.
 
