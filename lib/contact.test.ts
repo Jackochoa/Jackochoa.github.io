@@ -1,0 +1,4 @@
+import { describe, expect, it } from "vitest";
+import { validateContact, type ContactValues } from "./contact";
+const values: ContactValues = { name: "Ada", project: "", problem: "A complex product", email: "ada@example.com", whatsapp: "", consent: true, website: "" };
+describe("validateContact", () => { it("accepts either email or WhatsApp with required fields and consent", () => { expect(validateContact(values, "en")).toEqual({}); expect(validateContact({ ...values, email: "", whatsapp: "+593 98 055 9255" }, "es")).toEqual({}); }); it("requires name, problem, one reply channel, and consent", () => { expect(validateContact({ ...values, name: "", problem: "", email: "", consent: false }, "en")).toEqual({ name: "Enter your name.", problem: "Tell me about the problem.", contact: "Leave an email or WhatsApp number so I can reply.", consent: "I need your consent to use these details and reply." }); }); });
