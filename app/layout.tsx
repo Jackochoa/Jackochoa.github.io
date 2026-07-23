@@ -1,0 +1,28 @@
+import type { Metadata } from "next";
+import Script from "next/script";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://jacksonochoa.page"),
+  title: { default: "Jackson Ochoa — web products with clarity", template: "%s · Jackson Ochoa" },
+  description: "Jackson Ochoa designs and builds useful web products for complex ideas and operations.",
+  authors: [{ name: "Jackson Ochoa" }],
+  creator: "Jackson Ochoa",
+  alternates: { canonical: "https://jacksonochoa.page/", languages: { en: "https://jacksonochoa.page/", es: "https://jacksonochoa.page/es/" } },
+  openGraph: { type: "website", siteName: "Jackson Ochoa", title: "Jackson Ochoa — web products with clarity", description: "End-to-end web products for complex ideas and operations.", url: "https://jacksonochoa.page/" },
+  robots: { index: true, follow: true },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Person", name: "Jackson Ochoa", url: "https://jacksonochoa.page/", jobTitle: "Independent product engineer" },
+    { "@type": "WebSite", name: "Jackson Ochoa", url: "https://jacksonochoa.page/", description: "End-to-end web products for complex ideas and operations." },
+  ],
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const umamiId = process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID;
+  const umamiScript = process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL;
+  return <html lang="en"><body><a className="skip-link" href="#main-content">Skip to content</a>{children}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />{umamiId && umamiScript ? <Script src={umamiScript} data-website-id={umamiId} strategy="afterInteractive" /> : null}</body></html>;
+}
