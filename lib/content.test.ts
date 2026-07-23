@@ -57,10 +57,14 @@ describe("portfolio content", () => {
   });
 
   it("maps equivalent language routes", () => {
-    expect(getLocalizedPath("es", "/")).toBe("/es/");
-    expect(getLocalizedPath("es", "/work/rust-dashboard/")).toBe("/es/proyectos/rust-dashboard/");
-    expect(getEnglishPathFromSpanish("/es/proyectos/rust-dashboard/")).toBe("/work/rust-dashboard/");
-    expect(getEnglishPathFromSpanish("/es/sobre-mi/")).toBe("/about/");
+    expect(getLocalizedPath("es", "/")).toBe("/");
+    expect(getLocalizedPath("es", "/work/rust-dashboard/")).toBe("/proyectos/rust-dashboard/");
+    expect(getLocalizedPath("es", "/en/work/rust-dashboard/")).toBe("/proyectos/rust-dashboard/");
+    expect(getLocalizedPath("en", "/work/rust-dashboard/")).toBe("/en/work/rust-dashboard/");
+    expect(getLocalizedPath("en", "/en/work/rust-dashboard/")).toBe("/en/work/rust-dashboard/");
+    expect(getEnglishPathFromSpanish("/proyectos/rust-dashboard/")).toBe("/en/work/rust-dashboard/");
+    expect(getEnglishPathFromSpanish("/es/proyectos/rust-dashboard/")).toBe("/en/work/rust-dashboard/");
+    expect(getEnglishPathFromSpanish("/es/sobre-mi/")).toBe("/en/about/");
   });
 
   it("exposes only the two supported locales", () => {

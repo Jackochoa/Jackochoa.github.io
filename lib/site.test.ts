@@ -15,13 +15,13 @@ describe("localized metadata", () => {
       locale: "es",
       title: "Proyectos seleccionados",
       description: "Casos sanitizados.",
-      englishPath: "/work/",
-      spanishPath: "/es/proyectos/",
+      englishPath: "/en/work/",
+      spanishPath: "/proyectos/",
     });
 
-    expect(metadata.alternates?.canonical).toBe("https://jacksonochoa.page/es/proyectos/");
-    expect(metadata.alternates?.languages?.en).toBe("https://jacksonochoa.page/work/");
-    expect(metadata.alternates?.languages?.es).toBe("https://jacksonochoa.page/es/proyectos/");
-    expect(metadata.openGraph?.url).toBe("https://jacksonochoa.page/es/proyectos/");
+    expect(metadata.alternates?.canonical).toBe("https://jacksonochoa.page/proyectos/");
+    expect(metadata.alternates?.languages?.en).toBe("https://jacksonochoa.page/en/work/");
+    expect(metadata.alternates?.languages?.es).toBe("https://jacksonochoa.page/proyectos/");
+    expect(metadata.openGraph?.url).toBe("https://jacksonochoa.page/proyectos/");
   });
 });

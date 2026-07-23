@@ -152,22 +152,26 @@ export function getAlternateLocale(locale: Locale): Locale {
 }
 
 export function getLocalizedPath(locale: Locale, path: string) {
-  if (locale === "en") return path || "/";
-  if (path === "/") return "/es/";
-  if (path.startsWith("/work/")) return path.replace("/work/", "/es/proyectos/");
-  if (path === "/work/") return "/es/proyectos/";
-  if (path === "/about/") return "/es/sobre-mi/";
-  if (path === "/process/") return "/es/proceso/";
-  if (path === "/privacy/") return "/es/privacidad/";
-  return `/es${path}`;
+  if (locale === "es") {
+    if (path === "/") return "/";
+    if (path.startsWith("/en/work/")) return path.replace("/en/work/", "/proyectos/");
+    if (path.startsWith("/work/")) return path.replace("/work/", "/proyectos/");
+    if (path === "/work/") return "/proyectos/";
+    if (path === "/about/") return "/sobre-mi/";
+    if (path === "/process/") return "/proceso/";
+    if (path === "/privacy/") return "/privacidad/";
+    return path;
+  }
+  return path.startsWith("/en/") ? path : (path === "/" ? "/en/" : `/en${path}`);
 }
 
 export function getEnglishPathFromSpanish(path: string) {
-  if (path === "/es/" || path === "/es") return "/";
-  if (path.startsWith("/es/proyectos/")) return path.replace("/es/proyectos/", "/work/");
-  if (path === "/es/proyectos/" || path === "/es/proyectos") return "/work/";
-  if (path === "/es/sobre-mi/" || path === "/es/sobre-mi") return "/about/";
-  if (path === "/es/proceso/" || path === "/es/proceso") return "/process/";
-  if (path === "/es/privacidad/" || path === "/es/privacidad") return "/privacy/";
-  return path.replace(/^\/es/, "") || "/";
+  if (path.startsWith("/es/")) path = path.slice(3);
+  if (path === "/" || path === "") return "/en/";
+  if (path.startsWith("/proyectos/")) return path.replace("/proyectos/", "/en/work/");
+  if (path === "/proyectos/" || path === "/proyectos") return "/en/work/";
+  if (path === "/sobre-mi/" || path === "/sobre-mi") return "/en/about/";
+  if (path === "/proceso/" || path === "/proceso") return "/en/process/";
+  if (path === "/privacidad/" || path === "/privacidad") return "/en/privacy/";
+  return `/en${path}`;
 }

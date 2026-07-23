@@ -4,7 +4,7 @@ import type { Locale } from "./content";
 export const site = {
   name: "Jackson Ochoa",
   domain: "https://jacksonochoa.page",
-  email: "jacksonochoa135@outlook.com",
+  email: "jackson@briquette.cc",
   description: "Jackson Ochoa designs and builds useful web products for complex ideas and operations.",
 };
 
@@ -32,7 +32,7 @@ export function pageMetadata({ locale, title, description, englishPath, spanishP
       languages: {
         en: `${site.domain}${englishPath}`,
         es: `${site.domain}${spanishPath}`,
-        "x-default": `${site.domain}${englishPath}`,
+        "x-default": `${site.domain}${spanishPath}`,
       },
     },
     openGraph: {

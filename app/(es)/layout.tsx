@@ -9,16 +9,16 @@ export const metadata: Metadata = {
   description: "Jackson Ochoa diseña y construye productos web útiles para ideas y operaciones complejas.",
   authors: [{ name: "Jackson Ochoa" }],
   creator: "Jackson Ochoa",
-  alternates: { canonical: "https://jacksonochoa.page/es/", languages: { en: "https://jacksonochoa.page/", es: "https://jacksonochoa.page/es/" } },
-  openGraph: { type: "website", siteName: "Jackson Ochoa", title: "Jackson Ochoa — productos web con criterio", description: "Productos web de punta a punta para ideas y operaciones complejas.", url: "https://jacksonochoa.page/es/" },
+  alternates: { canonical: "https://jacksonochoa.page/", languages: { en: "https://jacksonochoa.page/en/", es: "https://jacksonochoa.page/", "x-default": "https://jacksonochoa.page/" } },
+  openGraph: { type: "website", siteName: "Jackson Ochoa", title: "Jackson Ochoa — productos web con criterio", description: "Productos web de punta a punta para ideas y operaciones complejas.", url: "https://jacksonochoa.page/" },
   robots: { index: true, follow: true },
 };
 
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "Person", name: "Jackson Ochoa", url: "https://jacksonochoa.page/es/", jobTitle: "Ingeniero de producto independiente", knowsLanguage: ["es", "en"] },
-    { "@type": "WebSite", name: "Jackson Ochoa", url: "https://jacksonochoa.page/es/", description: "Productos web de punta a punta para ideas y operaciones complejas." },
+    { "@type": "Person", name: "Jackson Ochoa", url: "https://jacksonochoa.page/", jobTitle: "Ingeniero de producto independiente", knowsLanguage: ["es", "en"] },
+    { "@type": "WebSite", name: "Jackson Ochoa", url: "https://jacksonochoa.page/", description: "Productos web de punta a punta para ideas y operaciones complejas." },
   ],
 };
 
