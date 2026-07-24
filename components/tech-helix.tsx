@@ -16,11 +16,13 @@ import { stackGroups, type StackEntry } from "@/lib/content";
 
 const CATEGORY_VAR: Record<string, string> = {
   Languages: "var(--cat-lang)",
+  "Web foundations": "var(--cat-web)",
   Frontend: "var(--cat-frontend)",
   Backend: "var(--cat-backend)",
   Data: "var(--cat-data)",
+  "Scientific workflows": "var(--cat-science)",
+  "Delivery / collaboration": "var(--cat-delivery)",
   "Cloud / Infra": "var(--cat-cloud)",
-  Tooling: "var(--cat-tooling)",
 };
 
 type Rung = { left: StackEntry; right: StackEntry | null; color: string };
@@ -32,7 +34,7 @@ const REPEAT_COUNT = 4;
 function buildRungs(): Rung[] {
   const single: Rung[] = [];
   for (const group of stackGroups) {
-    const items = group.items.filter((item) => item.icon);
+    const items = group.items;
     const color = CATEGORY_VAR[group.label.en] ?? "var(--accent)";
     for (let i = 0; i < items.length; i += 2) {
       single.push({ left: items[i], right: items[i + 1] ?? null, color });
@@ -51,6 +53,11 @@ const HELIX_ICON_SCALE = 0.72; // keep the 24-unit brand path inside the r=13 ba
 function iconPath(slug: string | null): string | null {
   if (!slug) return null;
   return (icons as Record<string, { path: string } | undefined>)[slug]?.path ?? null;
+}
+
+function badgeLabel(entry: StackEntry): string {
+  if (entry.badge) return entry.badge;
+  return entry.name.replace(/[^A-Za-z0-9]/g, "").toUpperCase().slice(0, 4);
 }
 
 export function TechHelix() {
@@ -210,7 +217,9 @@ function HelixBadge({ refCb, entry, color }: { refCb: (el: SVGGElement | null) =
         <g transform={`scale(${HELIX_ICON_SCALE}) translate(-12, -12)`}>
           <path d={path} style={{ fill: color }} />
         </g>
-      ) : null}
+      ) : (
+        <text x="0" y="0" textAnchor="middle" dominantBaseline="central" style={{ fill: color }}>{badgeLabel(entry)}</text>
+      )}
     </g>
   );
 }

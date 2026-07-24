@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getAlternateLocale, getEnglishPathFromSpanish, getLocalizedPath, getProject, getProjects } from "./content";
+import { getAlternateLocale, getEnglishPathFromSpanish, getLocalizedPath, getProject, getProjects, stackGroups, stackProof } from "./content";
 import type { ProjectCase } from "./content";
 
 describe("portfolio content", () => {
@@ -54,6 +54,18 @@ describe("portfolio content", () => {
         expect(media.path).not.toMatch(/(?:token|api[_-]?key|secret|password|credential)[=:]/i);
       }
     }
+  });
+
+  it("keeps the expanded stack represented in the DNA and evidence map", () => {
+    const items = stackGroups.flatMap((group) => group.items);
+    const names = new Set(items.map((item) => item.name));
+
+    expect([...names]).toEqual(expect.arrayContaining([
+      "GitHub", "GitLab", "Conda", "Mamba", "Snakemake", "Perl", "R", "Biopython", "HTML", "CSS", "JavaScript",
+    ]));
+    expect(items.filter((item) => item.icon === null).every((item) => Boolean(item.badge))).toBe(true);
+    expect(stackProof).toHaveLength(6);
+    expect(stackProof.filter((proof) => proof.slug)).toHaveLength(4);
   });
 
   it("maps equivalent language routes", () => {

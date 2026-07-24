@@ -1,6 +1,6 @@
 import Link from "next/link";
 import * as icons from "simple-icons";
-import { getCopy, getLocalizedPath, stackGroups, stackNote, type Locale, type StackEntry } from "@/lib/content";
+import { getCopy, getLocalizedPath, stackGroups, stackNote, stackProof, type Locale, type StackEntry } from "@/lib/content";
 import { EmailCta } from "./email-cta";
 import { SystemFlow } from "./motifs";
 import { PageShell } from "./page-shell";
@@ -128,9 +128,35 @@ function StackSection({ locale, kicker, title }: { locale: Locale; kicker: strin
             </div>
           ))}
         </div>
+        <StackProofList locale={locale} />
         <p className="stack-note"><b>*</b> {stackNote[locale]}</p>
       </div>
     </section>
+  );
+}
+
+function StackProofList({ locale }: { locale: Locale }) {
+  return (
+    <div className="stack-proof">
+      <div className="stack-proof__header">
+        <span className="stack-group__label">{locale === "es" ? "Se demuestra en" : "Demonstrated in"}</span>
+        <p>{locale === "es" ? "Herramientas conectadas a casos, pipelines y entrega real." : "Tools connected to real case studies, pipelines, and delivery."}</p>
+      </div>
+      <ul className="stack-proof__list">
+        {stackProof.map((proof) => (
+          <li className="stack-proof__item" key={proof.title.en}>
+            {proof.slug ? (
+              <Link className="stack-proof__title" href={getLocalizedPath(locale, `/work/${proof.slug}/`)}>
+                {proof.title[locale]}<span aria-hidden="true">↗</span>
+              </Link>
+            ) : (
+              <strong className="stack-proof__title stack-proof__title--static">{proof.title[locale]}</strong>
+            )}
+            <p>{proof.detail[locale]}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
