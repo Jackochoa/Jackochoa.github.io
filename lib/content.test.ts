@@ -61,8 +61,14 @@ describe("portfolio content", () => {
     const names = new Set(items.map((item) => item.name));
 
     expect([...names]).toEqual(expect.arrayContaining([
-      "GitHub", "GitLab", "Conda", "Mamba", "Snakemake", "Perl", "R", "Biopython", "HTML", "CSS", "JavaScript",
+      "GitHub", "GitLab", "Docker", "Conda", "Mamba", "Perl", "R", "HTML", "CSS", "JavaScript",
     ]));
+    expect([...names]).not.toEqual(expect.arrayContaining([
+      "Snakemake", "Biopython", "FastQC", "SPAdes", "BUSCO", "BLAST", "MultiQC",
+    ]));
+    expect(stackGroups.find((group) => group.label.en === "Scientific workflows")).toBeUndefined();
+    const delivery = stackGroups.find((group) => group.label.en === "Delivery / collaboration");
+    expect(delivery?.items.map((item) => item.name)).toEqual(expect.arrayContaining(["Docker", "Conda", "Mamba"]));
     expect(items.filter((item) => item.icon === null).every((item) => Boolean(item.badge))).toBe(true);
     expect(stackProof).toHaveLength(6);
     expect(stackProof.filter((proof) => proof.slug)).toHaveLength(4);

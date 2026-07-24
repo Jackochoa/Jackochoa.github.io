@@ -20,7 +20,6 @@ const CATEGORY_VAR: Record<string, string> = {
   Frontend: "var(--cat-frontend)",
   Backend: "var(--cat-backend)",
   Data: "var(--cat-data)",
-  "Scientific workflows": "var(--cat-science)",
   "Delivery / collaboration": "var(--cat-delivery)",
   "Cloud / Infra": "var(--cat-cloud)",
 };
