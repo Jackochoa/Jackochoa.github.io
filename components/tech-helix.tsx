@@ -1,18 +1,18 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import * as icons from "simple-icons";
+import { stackGroups } from "@/lib/content";
 
 /* Constant scroll-reactive background: a DNA double helix whose base pairs are
- * the languages and frameworks in use, built from modular "brick" nodes — an
- * organic form assembled from blocks (a nod to Briquette's concept, not its
- * palette). Pure CSS 3D so the labels stay real text; a throttled scroll
- * listener drives the rotation. Decorative and subtle; content stays readable.
- * Static under prefers-reduced-motion. */
-const BASES = [
-  "TypeScript", "React", "Next.js", "Rust", "Axum", "Svelte", "Python", "D3",
-  "NestJS", "Express", "PostgreSQL", "Redis", "SQLite", "Prisma", "Drizzle",
-  "Zod", "Vite", "Tokio", "Socket.io", "Docker", "Bash", "Git",
-];
+ * the languages and frameworks in use, each rung built from real brand icons
+ * (modular "brick" nodes) — an organic form assembled from blocks, echoing
+ * Briquette's concept without borrowing its palette. Pure CSS 3D so labels
+ * stay real text; a throttled scroll listener drives the rotation. The twist
+ * per rung is kept small so the whole shape stays legible instead of folding
+ * into itself. Decorative, positioned off to the side. Static under
+ * prefers-reduced-motion. */
+const BASES = stackGroups.flatMap((group) => group.items).filter((item) => item.icon);
 
 export function TechHelix() {
   const spineRef = useRef<HTMLDivElement>(null);
@@ -24,7 +24,7 @@ export function TechHelix() {
 
     let ticking = false;
     const update = () => {
-      spine.style.setProperty("--rot", `${window.scrollY * 0.12}deg`);
+      spine.style.setProperty("--rot", `${window.scrollY * 0.05}deg`);
       spine.style.setProperty("--drift", `${window.scrollY * -0.02}px`);
       ticking = false;
     };
@@ -42,13 +42,20 @@ export function TechHelix() {
   return (
     <div className="tech-helix" aria-hidden="true">
       <div className="tech-helix__spine" ref={spineRef}>
-        {BASES.map((name, i) => (
-          <div className="tech-helix__rung" key={name} style={{ "--i": i - mid } as React.CSSProperties}>
-            <span className="tech-helix__brick" />
-            <span className="tech-helix__label">{name}</span>
-            <span className="tech-helix__brick" />
-          </div>
-        ))}
+        {BASES.map((item, i) => {
+          const icon = (icons as Record<string, { path: string } | undefined>)[item.icon as string];
+          return (
+            <div className="tech-helix__rung" key={item.name} style={{ "--i": i - mid } as React.CSSProperties}>
+              <span className="tech-helix__brick">
+                {icon ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d={icon.path} /></svg> : null}
+              </span>
+              <span className="tech-helix__label">{item.name}</span>
+              <span className="tech-helix__brick">
+                {icon ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d={icon.path} /></svg> : null}
+              </span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

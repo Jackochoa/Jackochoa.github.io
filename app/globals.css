@@ -208,7 +208,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 /* --- Sections ------------------------------------------------------- */
 .section { padding: clamp(4rem, 8vw, 6.5rem) 0; }
-.section--tinted { background: var(--surface-2); }
+.section--tinted { background: color-mix(in srgb, var(--surface-2) 92%, transparent); }
 .section-heading { max-width: 42rem; }
 .section-heading--right { margin-left: auto; }
 .section-heading h2 {
@@ -292,40 +292,46 @@ button, a { -webkit-tap-highlight-color: transparent; }
 /* --- Tech helix background (constant, scroll-reactive) -------------- */
 .tech-helix {
   position: fixed; inset: 0; z-index: -1; overflow: hidden;
-  pointer-events: none; perspective: 1100px;
+  pointer-events: none; perspective: 1200px;
   display: grid; place-items: center;
+  /* Off to the right, clear of the text column. */
+  justify-items: end; padding-right: clamp(1rem, 6vw, 7rem);
 }
 .tech-helix__spine {
   position: relative; transform-style: preserve-3d;
   transform: translateY(var(--drift, 0)) rotateX(8deg) rotateY(var(--rot, 0deg));
-  opacity: 0.16;
+  opacity: 0.22;
 }
 .tech-helix__rung {
   position: absolute; left: 50%; top: 50%;
-  display: flex; align-items: center; gap: 0.75rem;
-  width: 24rem; margin-left: -12rem;
-  transform: translateY(calc(var(--i) * 2.3rem)) rotateY(calc(var(--i) * 34deg));
+  display: flex; align-items: center; gap: 0.6rem;
+  width: 16rem; margin-left: -8rem;
+  /* Small twist per base keeps the whole helix legible instead of folding
+     into a foreshortened tangle once the parent spine keeps rotating. */
+  transform: translateY(calc(var(--i) * 2rem)) rotateY(calc(var(--i) * 7deg));
   transform-style: preserve-3d;
 }
 .tech-helix__brick {
-  flex: none; width: 0.7rem; height: 0.7rem;
-  background: var(--accent); border-radius: 2px;
+  flex: none; width: 1.3rem; height: 1.3rem; display: grid; place-items: center;
+  border-radius: 3px; background: var(--accent-soft);
 }
+.tech-helix__brick svg { width: 0.85rem; height: 0.85rem; fill: var(--accent); }
 .tech-helix__rung::before {
-  content: ""; position: absolute; left: 0.7rem; right: 0.7rem; top: 50%;
+  content: ""; position: absolute; left: 1.3rem; right: 1.3rem; top: 50%;
   height: 1.5px; background: linear-gradient(90deg, var(--accent), var(--border-strong));
 }
 .tech-helix__label {
   flex: 1; text-align: center;
-  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
+  font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600;
   color: var(--text-dim); white-space: nowrap; backface-visibility: hidden;
 }
 @media (prefers-reduced-motion: reduce) {
-  .tech-helix__spine { transform: rotateX(8deg) rotateY(28deg); }
+  .tech-helix__spine { transform: rotateX(8deg) rotateY(18deg); }
 }
-@media (max-width: 800px) {
-  .tech-helix__spine { opacity: 0.1; }
-  .tech-helix__rung { width: 18rem; margin-left: -9rem; }
+@media (max-width: 900px) {
+  .tech-helix { justify-items: center; padding-right: 0; }
+  .tech-helix__spine { opacity: 0.14; }
+  .tech-helix__rung { width: 13rem; margin-left: -6.5rem; }
 }
 
 /* --- Project carousel ----------------------------------------------- */
@@ -358,7 +364,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .carousel__dot.is-active { background: var(--accent); border-color: var(--accent); }
 
 /* --- Stack (grouped by category) ------------------------------------ */
-.stack { background: var(--surface-2); border-block: 1px solid var(--border); }
+.stack { background: color-mix(in srgb, var(--surface-2) 92%, transparent); border-block: 1px solid var(--border); }
 .stack__inner { padding: clamp(3rem, 6vw, 4.5rem) 0; }
 .stack-groups {
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -569,7 +575,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .motif__flow { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 6 6; animation: flow-dash 2s linear infinite; }
 
 /* Flow band — one contained full-width motif. */
-.motif-band { border-block: 1px solid var(--border); background: var(--surface-2); }
+.motif-band { border-block: 1px solid var(--border); background: color-mix(in srgb, var(--surface-2) 92%, transparent); }
 .motif-band__inner { display: grid; place-items: center; gap: 1rem; padding: clamp(2.5rem, 5vw, 4rem) 0; }
 .motif-band .motif--flow { max-width: 30rem; }
 .motif-band__note { margin: 0; color: var(--text-dim); font-family: var(--font-mono); font-size: var(--type-label); letter-spacing: 0.08em; text-transform: uppercase; }
