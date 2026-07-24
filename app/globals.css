@@ -41,6 +41,14 @@
   --err:  #B91C1C;
   --info: #1D4ED8;
 
+  /* --- Base-pair categories (tech-helix), ATCG-style coding, own palette */
+  --cat-lang:     #7C5CBF; /* languages */
+  --cat-frontend: #0B6E61; /* frontend — same family as --accent */
+  --cat-backend:  #1D4ED8; /* backend */
+  --cat-data:     #B45309; /* data / db */
+  --cat-cloud:    #BE185D; /* cloud / infra */
+  --cat-tooling:  #57606B; /* tooling */
+
   /* --- Type ----------------------------------------------------------- */
   --font-body: var(--font-sans), system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
@@ -289,7 +297,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   color: var(--text-dim); font-size: 0.68rem; font-weight: 600;
 }
 
-/* --- Tech helix background (constant, scroll-reactive) -------------- */
+/* --- Tech helix background (constant, always-spinning) --------------- */
 .tech-helix {
   position: fixed; inset: 0; z-index: -1; overflow: hidden;
   pointer-events: none; perspective: 1200px;
@@ -297,41 +305,48 @@ button, a { -webkit-tap-highlight-color: transparent; }
   /* Off to the right, clear of the text column. */
   justify-items: end; padding-right: clamp(1rem, 6vw, 7rem);
 }
+/* Continuous spin — the molecule turns on its own, like the real thing. */
+.tech-helix__turntable {
+  transform-style: preserve-3d;
+  animation: helix-spin 26s linear infinite;
+}
+/* Scroll adds extra turn on top of the constant spin. */
 .tech-helix__spine {
   position: relative; transform-style: preserve-3d;
-  transform: translateY(var(--drift, 0)) rotateX(8deg) rotateY(var(--rot, 0deg));
-  opacity: 0.22;
+  transform: translateY(var(--drift, 0)) rotateX(10deg) rotateY(var(--rot, 0deg));
+  opacity: 0.24;
 }
 .tech-helix__rung {
   position: absolute; left: 50%; top: 50%;
-  display: flex; align-items: center; gap: 0.6rem;
-  width: 16rem; margin-left: -8rem;
-  /* Small twist per base keeps the whole helix legible instead of folding
-     into a foreshortened tangle once the parent spine keeps rotating. */
-  transform: translateY(calc(var(--i) * 2rem)) rotateY(calc(var(--i) * 7deg));
+  display: flex; align-items: center; gap: 0.4rem;
+  width: 4.5rem; margin-left: -2.25rem;
+  /* Real B-DNA twist (~34.3deg per base pair) — bases on the far side hide
+     behind the near ones as they rotate out of view, like an actual helix. */
+  transform: translateY(calc(var(--i) * 1.5rem)) rotateY(calc(var(--i) * 34.3deg));
   transform-style: preserve-3d;
 }
+.tech-helix__node {
+  flex: none; width: 0.35rem; height: 0.35rem; border-radius: 50%;
+  background: var(--base, var(--accent));
+}
 .tech-helix__brick {
-  flex: none; width: 1.3rem; height: 1.3rem; display: grid; place-items: center;
-  border-radius: 3px; background: var(--accent-soft);
+  flex: none; width: 1.5rem; height: 1.5rem; display: grid; place-items: center;
+  border-radius: 4px; background: color-mix(in srgb, var(--base, var(--accent)) 14%, transparent);
+  backface-visibility: hidden;
 }
-.tech-helix__brick svg { width: 0.85rem; height: 0.85rem; fill: var(--accent); }
+.tech-helix__brick svg { width: 0.95rem; height: 0.95rem; fill: var(--base, var(--accent)); }
 .tech-helix__rung::before {
-  content: ""; position: absolute; left: 1.3rem; right: 1.3rem; top: 50%;
-  height: 1.5px; background: linear-gradient(90deg, var(--accent), var(--border-strong));
+  content: ""; position: absolute; left: 0.35rem; right: 0.35rem; top: 50%;
+  height: 1.5px; background: var(--base, var(--accent)); opacity: 0.5;
 }
-.tech-helix__label {
-  flex: 1; text-align: center;
-  font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600;
-  color: var(--text-dim); white-space: nowrap; backface-visibility: hidden;
-}
+@keyframes helix-spin { to { transform: rotateY(360deg); } }
 @media (prefers-reduced-motion: reduce) {
-  .tech-helix__spine { transform: rotateX(8deg) rotateY(18deg); }
+  .tech-helix__turntable { animation: none; }
+  .tech-helix__spine { transform: rotateX(10deg) rotateY(18deg); }
 }
 @media (max-width: 900px) {
   .tech-helix { justify-items: center; padding-right: 0; }
-  .tech-helix__spine { opacity: 0.14; }
-  .tech-helix__rung { width: 13rem; margin-left: -6.5rem; }
+  .tech-helix__spine { opacity: 0.16; }
 }
 
 /* --- Project carousel ----------------------------------------------- */
