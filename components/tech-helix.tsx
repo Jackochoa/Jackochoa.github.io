@@ -216,6 +216,8 @@ function HelixBadge({ refCb, entry, color }: { refCb: (el: SVGGElement | null) =
         <g transform={`scale(${HELIX_ICON_SCALE}) translate(-12, -12)`}>
           <path d={path} style={{ fill: color }} />
         </g>
+      ) : entry.asset ? (
+        <image href={entry.asset} x="-10" y="-10" width="20" height="20" preserveAspectRatio="xMidYMid meet" />
       ) : (
         <text x="0" y="0" textAnchor="middle" dominantBaseline="central" style={{ fill: color }}>{badgeLabel(entry)}</text>
       )}

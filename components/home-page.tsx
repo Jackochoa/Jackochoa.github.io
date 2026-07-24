@@ -166,6 +166,7 @@ function StackIcon({ item }: { item: StackEntry }) {
   return (
     <span className={className} title={item.name}>
       {icon ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d={icon.path} /></svg> : null}
+      {item.asset ? <svg viewBox="0 0 20 20" aria-hidden="true"><image href={item.asset} x="0" y="0" width="20" height="20" preserveAspectRatio="xMidYMid meet" /></svg> : null}
       {item.name}{item.declared ? "*" : ""}
     </span>
   );

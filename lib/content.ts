@@ -161,10 +161,11 @@ for (const locale of ["en", "es"] as const) {
 }
 
 /* Stack grouped by category. `icon` is a simple-icons slug (mapped in the
- * component) or null when the set has no clean brand icon. `badge` provides a
- * compact wordmark fallback for the DNA helix. `declared: true` marks broader
- * practice or local tooling that is not evidenced in the four case studies. */
-export type StackEntry = { name: string; icon: string | null; badge?: string; declared?: boolean };
+ * component), `asset` is a local brand mark when the icon set has no exact
+ * match, and `badge` provides a compact wordmark fallback. `declared: true`
+ * marks broader practice or local tooling that is not evidenced in the four
+ * case studies. */
+export type StackEntry = { name: string; icon: string | null; asset?: string; badge?: string; declared?: boolean };
 export type StackGroup = { label: { en: string; es: string }; items: StackEntry[] };
 export type StackProof = { title: { en: string; es: string }; detail: { en: string; es: string }; slug?: string };
 
@@ -206,7 +207,8 @@ export const stackGroups: StackGroup[] = [
     { name: "Prisma", icon: "siPrisma" },
     { name: "Drizzle", icon: "siDrizzle" },
     { name: "Redis", icon: "siRedis", declared: true },
-    { name: "Azure SQL", icon: null, badge: "SQL", declared: true },
+    { name: "MSSQL", icon: null, badge: "MSSQL", declared: true },
+    { name: "MySQL", icon: "siMysql", declared: true },
   ] },
   { label: { en: "Delivery / collaboration", es: "Entrega / colaboración" }, items: [
     { name: "Git", icon: "siGit" },
@@ -214,8 +216,8 @@ export const stackGroups: StackGroup[] = [
     { name: "GitLab", icon: "siGitlab", declared: true },
     { name: "GitHub Actions", icon: "siGithubactions" },
     { name: "Docker", icon: "siDocker" },
-    { name: "Conda", icon: null, badge: "CONDA" },
-    { name: "Mamba", icon: null, badge: "MAMBA" },
+    { name: "Conda", icon: null, asset: "/conda-mark.svg" },
+    { name: "Mamba", icon: null, asset: "/mamba-mark.png" },
     { name: "npm", icon: "siNpm" },
     { name: "pnpm", icon: "siPnpm" },
     { name: "Playwright", icon: null, badge: "PW" },

@@ -1,3 +1,4 @@
+import * as icons from "simple-icons";
 import { describe, expect, it } from "vitest";
 import { getAlternateLocale, getEnglishPathFromSpanish, getLocalizedPath, getProject, getProjects, stackGroups, stackProof } from "./content";
 import type { ProjectCase } from "./content";
@@ -61,17 +62,35 @@ describe("portfolio content", () => {
     const names = new Set(items.map((item) => item.name));
 
     expect([...names]).toEqual(expect.arrayContaining([
-      "GitHub", "GitLab", "Docker", "Conda", "Mamba", "Perl", "R", "HTML", "CSS", "JavaScript",
+      "GitHub", "GitLab", "Docker", "Conda", "Mamba", "MSSQL", "MySQL", "Perl", "R", "HTML", "CSS", "JavaScript",
     ]));
+    expect(names.has("Azure SQL")).toBe(false);
     expect([...names]).not.toEqual(expect.arrayContaining([
       "Snakemake", "Biopython", "FastQC", "SPAdes", "BUSCO", "BLAST", "MultiQC",
     ]));
     expect(stackGroups.find((group) => group.label.en === "Scientific workflows")).toBeUndefined();
     const delivery = stackGroups.find((group) => group.label.en === "Delivery / collaboration");
     expect(delivery?.items.map((item) => item.name)).toEqual(expect.arrayContaining(["Docker", "Conda", "Mamba"]));
-    expect(items.filter((item) => item.icon === null).every((item) => Boolean(item.badge))).toBe(true);
+    expect(items.filter((item) => item.icon === null).every((item) => Boolean(item.badge || item.asset))).toBe(true);
+    expect(items.find((item) => item.name === "Conda")).toMatchObject({ asset: "/conda-mark.svg" });
+    expect(items.find((item) => item.name === "Mamba")).toMatchObject({ asset: "/mamba-mark.png" });
+    expect(items.find((item) => item.name === "MySQL")).toMatchObject({ icon: "siMysql", declared: true });
+    expect(items.find((item) => item.name === "MSSQL")).toMatchObject({ badge: "MSSQL", declared: true });
+    const stackNames = new Set(items.map((item) => item.name));
+    for (const project of getProjects("en")) {
+      expect(project.stack.every((item) => stackNames.has(item))).toBe(true);
+    }
     expect(stackProof).toHaveLength(6);
     expect(stackProof.filter((proof) => proof.slug)).toHaveLength(4);
+  });
+
+  it("keeps every declared Simple Icons reference resolvable", () => {
+    const unresolved = stackGroups
+      .flatMap((group) => group.items)
+      .filter((item) => item.icon !== null && !(icons as Record<string, unknown>)[item.icon])
+      .map((item) => item.name);
+
+    expect(unresolved).toEqual([]);
   });
 
   it("maps equivalent language routes", () => {
