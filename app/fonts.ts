@@ -1,15 +1,13 @@
-import { Geologica, Martian_Mono } from "next/font/google";
+import { Geist_Mono, Inter } from "next/font/google";
 
-export const geologica = Geologica({
-  variable: "--font-geologica",
+export const sans = Inter({
+  variable: "--font-sans",
   subsets: ["latin", "latin-ext"],
   display: "swap",
-  weight: "variable",
 });
 
-export const martianMono = Martian_Mono({
-  variable: "--font-martian-mono",
+export const mono = Geist_Mono({
+  variable: "--font-mono",
   subsets: ["latin", "latin-ext"],
   display: "swap",
-  weight: "variable",
 });
