@@ -1,14 +1,16 @@
 import Link from "next/link";
 import { getLocalizedPath, type Locale, type ProjectCase } from "@/lib/content";
+import { CircosArcs } from "./motifs";
 
 export function ProjectCard({ project, locale, featured = false }: { project: ProjectCase; locale: Locale; featured?: boolean }) {
   const path = getLocalizedPath(locale, `/work/${project.slug}/`);
+  const isCircos = project.slug === "mitocircos-studio";
   return (
     <article className={`project-card project-card--${project.accent} ${featured ? "project-card--featured" : ""}`}>
       <div className="project-card__visual" aria-hidden="true">
-        <div className="project-card__visual-orbit" />
+        {isCircos ? <CircosArcs /> : <div className="project-card__visual-orbit" />}
         <div className="project-card__visual-core"><span>{project.visualLabel}</span><strong>{project.visualDetail}</strong></div>
-        <div className="project-card__visual-line" />
+        {isCircos ? null : <div className="project-card__visual-line" />}
       </div>
       <div className="project-card__body">
         <div className="project-card__meta"><span>{project.eyebrow}</span><span>{project.year}</span></div>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import * as icons from "simple-icons";
 import { getCopy, getLocalizedPath, getProjects, stackGroups, stackNote, type Locale, type StackEntry } from "@/lib/content";
 import { EmailCta } from "./email-cta";
-import { OrganicMark } from "./organic-mark";
+import { DnaHelix, SystemFlow } from "./motifs";
 import { PageShell } from "./page-shell";
 import { ProjectCard } from "./project-card";
 import { SectionHeading } from "./section-heading";
@@ -26,8 +26,8 @@ export function HomePage({ locale }: { locale: Locale }) {
             </div>
             <p className="hero__proof">{t.proof}</p>
           </div>
-          <div className="hero__visual reveal reveal--delay" aria-hidden="true">
-            <OrganicMark />
+          <div className="hero__visual reveal reveal--delay">
+            <DnaHelix />
           </div>
         </div>
       </section>
@@ -53,6 +53,13 @@ export function HomePage({ locale }: { locale: Locale }) {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="motif-band" aria-hidden="true">
+        <div className="shell motif-band__inner">
+          <SystemFlow />
+          <p className="motif-band__note">{locale === "es" ? "red → arquitectura → ciencia" : "network → architecture → science"}</p>
         </div>
       </section>
 
