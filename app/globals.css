@@ -621,7 +621,13 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .work-grid { grid-template-columns: 1fr; }
   .project-card--featured { grid-column: auto; }
   .proof-strip__inner, .service-grid, .process-grid, .process-grid--five { grid-template-columns: 1fr; }
-  .service-card { border-right: 0; border-bottom: 1px solid var(--border); }
+  .service-card {
+    min-height: auto;
+    padding: 1.25rem 0 1.5rem;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .service-card h3 { margin-top: 1.25rem; }
   .stack-group { grid-template-columns: 1fr; gap: 0.5rem; }
   .process-step { min-height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
   .process-step:last-child { border-bottom: 0; }
