@@ -57,7 +57,7 @@ export function ProjectCarousel({ locale }: { locale: Locale }) {
             <span aria-hidden="true">→</span>
           </button>
         </div>
-        <div className="carousel__dots" role="tablist">
+        <div className="carousel__dots" role="group" aria-label={locale === "es" ? "Seleccionar proyecto" : "Select project"}>
           {projects.map((project, i) => (
             <button
               key={project.slug}

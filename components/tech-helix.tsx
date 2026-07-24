@@ -46,6 +46,7 @@ function buildRungs(): Rung[] {
 const TWIST_PER_RUNG = (34.3 * Math.PI) / 180; // real B-DNA twist
 const SPIN_SPEED = 0.00022; // rad/ms, idle rotation
 const VERTICAL_SPACING = 46;
+const HELIX_ICON_SCALE = 0.72; // keep the 24-unit brand path inside the r=13 badge
 
 function iconPath(slug: string | null): string | null {
   if (!slug) return null;
@@ -206,7 +207,7 @@ function HelixBadge({ refCb, entry, color }: { refCb: (el: SVGGElement | null) =
     <g ref={refCb} className="tech-helix__badge">
       <circle r="13" style={{ stroke: color }} />
       {path ? (
-        <g transform="translate(-12, -12)">
+        <g transform={`scale(${HELIX_ICON_SCALE}) translate(-12, -12)`}>
           <path d={path} style={{ fill: color }} />
         </g>
       ) : null}
