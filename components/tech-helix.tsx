@@ -25,15 +25,21 @@ const CATEGORY_VAR: Record<string, string> = {
 
 type Rung = { left: StackEntry; right: StackEntry | null; color: string };
 
+// Repeated a few times so the helix reads as one long, continuous strand
+// instead of running out after one pass through the stack.
+const REPEAT_COUNT = 4;
+
 function buildRungs(): Rung[] {
-  const rungs: Rung[] = [];
+  const single: Rung[] = [];
   for (const group of stackGroups) {
     const items = group.items.filter((item) => item.icon);
     const color = CATEGORY_VAR[group.label.en] ?? "var(--accent)";
     for (let i = 0; i < items.length; i += 2) {
-      rungs.push({ left: items[i], right: items[i + 1] ?? null, color });
+      single.push({ left: items[i], right: items[i + 1] ?? null, color });
     }
   }
+  const rungs: Rung[] = [];
+  for (let cycle = 0; cycle < REPEAT_COUNT; cycle++) rungs.push(...single);
   return rungs;
 }
 
@@ -162,7 +168,7 @@ export function TechHelix() {
         <g>
           {rungs.map((rung, i) => (
             <line
-              key={`rung-${rung.left.name}`}
+              key={`rung-${i}-${rung.left.name}`}
               ref={(el) => { lineRefs.current[i] = el; }}
               className="tech-helix__bond"
               style={{ stroke: rung.color }}
@@ -172,7 +178,7 @@ export function TechHelix() {
         <g ref={layerRef}>
           {rungs.map((rung, i) => (
             <HelixBadge
-              key={`a-${rung.left.name}`}
+              key={`a-${i}-${rung.left.name}`}
               refCb={(el) => { badgeARefs.current[i] = el; }}
               entry={rung.left}
               color={rung.color}
@@ -181,7 +187,7 @@ export function TechHelix() {
           {rungs.map((rung, i) =>
             rung.right ? (
               <HelixBadge
-                key={`b-${rung.right.name}`}
+                key={`b-${i}-${rung.right.name}`}
                 refCb={(el) => { badgeBRefs.current[i] = el; }}
                 entry={rung.right}
                 color={rung.color}
@@ -200,7 +206,7 @@ function HelixBadge({ refCb, entry, color }: { refCb: (el: SVGGElement | null) =
     <g ref={refCb} className="tech-helix__badge">
       <circle r="13" style={{ stroke: color }} />
       {path ? (
-        <g transform="translate(-8, -8)">
+        <g transform="translate(-12, -12)">
           <path d={path} style={{ fill: color }} />
         </g>
       ) : null}
