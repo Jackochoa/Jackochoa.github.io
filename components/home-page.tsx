@@ -1,16 +1,15 @@
 import Link from "next/link";
 import * as icons from "simple-icons";
-import { getCopy, getLocalizedPath, getProjects, stackGroups, stackNote, type Locale, type StackEntry } from "@/lib/content";
+import { getCopy, getLocalizedPath, stackGroups, stackNote, type Locale, type StackEntry } from "@/lib/content";
 import { DnaHero } from "./dna-hero";
 import { EmailCta } from "./email-cta";
 import { SystemFlow } from "./motifs";
 import { PageShell } from "./page-shell";
-import { ProjectCard } from "./project-card";
+import { ProjectCarousel } from "./project-carousel";
 import { SectionHeading } from "./section-heading";
 
 export function HomePage({ locale }: { locale: Locale }) {
   const t = getCopy(locale).home;
-  const projects = getProjects(locale);
   const workPath = getLocalizedPath(locale, "/work/");
 
   return (
@@ -67,11 +66,7 @@ export function HomePage({ locale }: { locale: Locale }) {
       <section className="section section--tinted" id="work">
         <div className="shell">
           <SectionHeading kicker={t.workKicker} title={t.workTitle} />
-          <div className="work-grid">
-            {projects.map((project, i) => (
-              <ProjectCard key={project.slug} project={project} locale={locale} featured={i === 0} />
-            ))}
-          </div>
+          <ProjectCarousel locale={locale} />
           <Link className="text-link" href={workPath}>{t.workAll}<span aria-hidden="true">↗</span></Link>
         </div>
       </section>

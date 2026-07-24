@@ -289,6 +289,52 @@ button, a { -webkit-tap-highlight-color: transparent; }
   color: var(--text-dim); font-size: 0.68rem; font-weight: 600;
 }
 
+/* --- Project carousel ----------------------------------------------- */
+.carousel { position: relative; margin-top: 3rem; }
+.carousel__helix {
+  position: absolute; right: -3rem; top: -3.5rem; z-index: 0;
+  width: 13rem; opacity: 0.12; transform: rotate(16deg); pointer-events: none;
+}
+.carousel__track {
+  position: relative; z-index: 1;
+  display: flex; align-items: stretch; gap: 1rem;
+  overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 1rem;
+  scrollbar-width: none;
+}
+.carousel__track::-webkit-scrollbar { display: none; }
+.carousel__item { flex: 0 0 clamp(18rem, 42%, 26rem); scroll-snap-align: start; }
+.carousel__item .project-card { height: 100%; }
+.carousel__controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.25rem; }
+.carousel__arrows { display: flex; gap: 0.5rem; }
+.carousel__arrow {
+  width: 2.75rem; height: 2.75rem; display: grid; place-items: center;
+  border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+  background: var(--surface); color: var(--text-strong); font-size: 1.1rem; cursor: pointer;
+  transition: border-color var(--motion-fast) var(--easing), background var(--motion-fast) var(--easing);
+}
+.carousel__arrow:hover:not(:disabled), .carousel__arrow:focus-visible { border-color: var(--accent); background: var(--accent-soft); }
+.carousel__arrow:disabled { opacity: 0.35; cursor: not-allowed; }
+.carousel__dots { display: flex; align-items: center; gap: 0.5rem; }
+.carousel__dot {
+  width: 0.55rem; height: 0.55rem; padding: 0;
+  border: 1px solid var(--border-strong); border-radius: 50%; background: transparent; cursor: pointer;
+  transition: background var(--motion-fast) var(--easing), border-color var(--motion-fast) var(--easing);
+}
+.carousel__dot.is-active { background: var(--accent); border-color: var(--accent); }
+
+/* Scroll-driven recline where supported; static tilt otherwise. */
+@supports (animation-timeline: view()) {
+  .carousel__helix {
+    animation: helix-recline linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 45%;
+  }
+  @keyframes helix-recline { from { transform: rotate(2deg); } to { transform: rotate(24deg); } }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carousel__helix { animation: none; transform: rotate(16deg); }
+}
+
 /* --- Stack (grouped by category) ------------------------------------ */
 .stack { background: var(--surface-2); border-block: 1px solid var(--border); }
 .stack__inner { padding: clamp(3rem, 6vw, 4.5rem) 0; }

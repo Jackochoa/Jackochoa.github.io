@@ -68,11 +68,23 @@ export function DnaHelix3D() {
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Scroll drives how far the helix reclines: 0 at top → ~0.5rad tilt once
+    // it has scrolled a viewport down.
+    let scrollTilt = 0;
+    const onScroll = () => {
+      const progress = Math.min(window.scrollY / (window.innerHeight || 800), 1);
+      scrollTilt = progress * 0.5;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
     let frame = 0;
     const render = () => renderer.render(scene, camera);
     const animate = () => {
       group.rotation.y += 0.005;
-      group.rotation.z = Math.sin(Date.now() * 0.001) * 0.1;
+      // Ease the resting sway toward the scroll-driven tilt.
+      const sway = Math.sin(Date.now() * 0.001) * 0.1;
+      group.rotation.z += (sway + scrollTilt - group.rotation.z) * 0.08;
       render();
       frame = requestAnimationFrame(animate);
     };
@@ -95,6 +107,7 @@ export function DnaHelix3D() {
 
     return () => {
       cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
       resize.disconnect();
       geometries.forEach((g) => g.dispose());
       materials.forEach((m) => m.dispose());
