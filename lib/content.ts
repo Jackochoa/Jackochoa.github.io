@@ -47,7 +47,7 @@ const copy = {
       intro: "I design the experience, build the system, and verify the edges so teams and users can make decisions with confidence.",
       primary: "Discuss your project",
       secondary: "View work",
-      proof: "Four real systems: operations, education, infrastructure, and science.",
+      proof: "Real systems across operations, education, infrastructure, and science.",
       servicesKicker: "Services",
       servicesTitle: "From the decision to the system behind it.",
       services: [
@@ -97,7 +97,7 @@ const copy = {
       intro: "Diseño la experiencia, construyo el sistema y verifico los bordes para que equipos y usuarios puedan decidir con confianza.",
       primary: "Hablemos de tu proyecto",
       secondary: "Ver proyectos",
-      proof: "Cuatro sistemas reales: operaciones, educación, infraestructura y ciencia.",
+      proof: "Sistemas reales en operaciones, educación, infraestructura y ciencia.",
       servicesKicker: "Servicios",
       servicesTitle: "De la decisión al sistema que la sostiene.",
       services: [

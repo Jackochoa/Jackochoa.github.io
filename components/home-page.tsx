@@ -1,7 +1,6 @@
 import Link from "next/link";
 import * as icons from "simple-icons";
 import { getCopy, getLocalizedPath, stackGroups, stackNote, type Locale, type StackEntry } from "@/lib/content";
-import { DnaHero } from "./dna-hero";
 import { EmailCta } from "./email-cta";
 import { SystemFlow } from "./motifs";
 import { PageShell } from "./page-shell";
@@ -15,7 +14,7 @@ export function HomePage({ locale }: { locale: Locale }) {
   return (
     <PageShell locale={locale} currentPath={locale === "es" ? "/" : "/en/"}>
       <section className="hero">
-        <div className="shell hero__grid">
+        <div className="shell">
           <div className="hero__copy reveal">
             <p className="eyebrow"><span aria-hidden="true">✳</span>{t.kicker}</p>
             <h1>{t.title}</h1>
@@ -26,18 +25,6 @@ export function HomePage({ locale }: { locale: Locale }) {
             </div>
             <p className="hero__proof">{t.proof}</p>
           </div>
-          <div className="hero__visual reveal reveal--delay">
-            <DnaHero />
-          </div>
-        </div>
-      </section>
-
-      <section className="proof-strip">
-        <div className="shell proof-strip__inner">
-          <span>01 / E‑Grúa</span>
-          <span>02 / Briquette LMS</span>
-          <span>03 / Rust Dashboard</span>
-          <span>04 / MitoCircos Studio</span>
         </div>
       </section>
 

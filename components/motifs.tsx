@@ -2,29 +2,6 @@
  * systems, science). Vector, accent-tinted, and paused by prefers-reduced-motion
  * via the global rule in globals.css. Decorative → aria-hidden. */
 
-export function DnaHelix({ className = "" }: { className?: string }) {
-  const rungs = [45, 80, 115, 150, 185, 220, 255];
-  return (
-    <span className={`motif motif--dna ${className}`} aria-hidden="true">
-      <svg viewBox="0 0 200 300" fill="none">
-        <path className="motif__strand" d="M100 10 C180 50 180 100 100 150 C20 200 20 250 100 290" />
-        <path className="motif__strand" d="M100 10 C20 50 20 100 100 150 C180 200 180 250 100 290" />
-        {rungs.map((y, i) => (
-          <line
-            key={y}
-            className="motif__rung"
-            x1="35" x2="165" y1={y} y2={y}
-            style={{ animationDelay: `${i * 0.22}s` }}
-          />
-        ))}
-        <circle className="motif__node" cx="100" cy="10" r="5" />
-        <circle className="motif__node" cx="100" cy="150" r="5" />
-        <circle className="motif__node" cx="100" cy="290" r="5" />
-      </svg>
-    </span>
-  );
-}
-
 export function CircosArcs({ className = "" }: { className?: string }) {
   return (
     <span className={`motif motif--circos ${className}`} aria-hidden="true">

@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getProjects, type Locale } from "@/lib/content";
-import { DnaHelix } from "./motifs";
 import { ProjectCard } from "./project-card";
 
 /* Horizontal project carousel — native scroll-snap for touch/keyboard, with
@@ -42,7 +41,6 @@ export function ProjectCarousel({ locale }: { locale: Locale }) {
 
   return (
     <div className="carousel">
-      <DnaHelix className="carousel__helix" />
       <div className="carousel__track" ref={trackRef}>
         {projects.map((project) => (
           <div className="carousel__item" key={project.slug}>
