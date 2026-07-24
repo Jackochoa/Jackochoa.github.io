@@ -297,56 +297,25 @@ button, a { -webkit-tap-highlight-color: transparent; }
   color: var(--text-dim); font-size: 0.68rem; font-weight: 600;
 }
 
-/* --- Tech helix background (constant, always-spinning) --------------- */
+/* --- Tech helix background (constant, always-spinning) ---------------
+ * Rendered as projected 3D math (JS computes x/y/depth per frame and writes
+ * SVG attributes directly via refs — see components/tech-helix.tsx), not CSS
+ * 3D transforms. That's what keeps it a legible, continuously turning double
+ * helix instead of collapsing into a flat tangle once rotation adds up. */
 .tech-helix {
   position: fixed; inset: 0; z-index: -1; overflow: hidden;
-  pointer-events: none; perspective: 1200px;
-  display: grid; place-items: center;
-  /* Off to the right, clear of the text column. */
-  justify-items: end; padding-right: clamp(1rem, 6vw, 7rem);
+  pointer-events: none; opacity: 0.55;
 }
-/* Continuous spin — the molecule turns on its own, like the real thing. */
-.tech-helix__turntable {
-  transform-style: preserve-3d;
-  animation: helix-spin 26s linear infinite;
+.tech-helix__svg { width: 100%; height: 100%; display: block; }
+.tech-helix__strand {
+  fill: none; stroke: var(--border-strong); stroke-width: 1.5;
 }
-/* Scroll adds extra turn on top of the constant spin. */
-.tech-helix__spine {
-  position: relative; transform-style: preserve-3d;
-  transform: translateY(var(--drift, 0)) rotateX(10deg) rotateY(var(--rot, 0deg));
-  opacity: 0.24;
-}
-.tech-helix__rung {
-  position: absolute; left: 50%; top: 50%;
-  display: flex; align-items: center; gap: 0.4rem;
-  width: 4.5rem; margin-left: -2.25rem;
-  /* Real B-DNA twist (~34.3deg per base pair) — bases on the far side hide
-     behind the near ones as they rotate out of view, like an actual helix. */
-  transform: translateY(calc(var(--i) * 1.5rem)) rotateY(calc(var(--i) * 34.3deg));
-  transform-style: preserve-3d;
-}
-.tech-helix__node {
-  flex: none; width: 0.35rem; height: 0.35rem; border-radius: 50%;
-  background: var(--base, var(--accent));
-}
-.tech-helix__brick {
-  flex: none; width: 1.5rem; height: 1.5rem; display: grid; place-items: center;
-  border-radius: 4px; background: color-mix(in srgb, var(--base, var(--accent)) 14%, transparent);
-  backface-visibility: hidden;
-}
-.tech-helix__brick svg { width: 0.95rem; height: 0.95rem; fill: var(--base, var(--accent)); }
-.tech-helix__rung::before {
-  content: ""; position: absolute; left: 0.35rem; right: 0.35rem; top: 50%;
-  height: 1.5px; background: var(--base, var(--accent)); opacity: 0.5;
-}
-@keyframes helix-spin { to { transform: rotateY(360deg); } }
-@media (prefers-reduced-motion: reduce) {
-  .tech-helix__turntable { animation: none; }
-  .tech-helix__spine { transform: rotateX(10deg) rotateY(18deg); }
+.tech-helix__bond { stroke-width: 1.5; stroke-dasharray: 3 4; }
+.tech-helix__badge circle {
+  fill: var(--bg); stroke-width: 1.5;
 }
 @media (max-width: 900px) {
-  .tech-helix { justify-items: center; padding-right: 0; }
-  .tech-helix__spine { opacity: 0.16; }
+  .tech-helix { opacity: 0.35; }
 }
 
 /* --- Project carousel ----------------------------------------------- */
