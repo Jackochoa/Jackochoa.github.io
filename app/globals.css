@@ -503,6 +503,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 /* Hero DNA sits in the hero visual column. */
 .hero__visual .motif--dna { max-width: 14rem; margin-inline: auto; }
+.motif--dna3d { width: 100%; height: 100%; min-height: 24rem; }
+.motif--dna3d canvas { display: block; margin-inline: auto; }
 /* Flow band — one contained full-width motif. */
 .motif-band { border-block: 1px solid var(--border); background: var(--surface-2); }
 .motif-band__inner { display: grid; place-items: center; gap: 1rem; padding: clamp(2.5rem, 5vw, 4rem) 0; }

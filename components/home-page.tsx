@@ -1,8 +1,9 @@
 import Link from "next/link";
 import * as icons from "simple-icons";
 import { getCopy, getLocalizedPath, getProjects, stackGroups, stackNote, type Locale, type StackEntry } from "@/lib/content";
+import { DnaHero } from "./dna-hero";
 import { EmailCta } from "./email-cta";
-import { DnaHelix, SystemFlow } from "./motifs";
+import { SystemFlow } from "./motifs";
 import { PageShell } from "./page-shell";
 import { ProjectCard } from "./project-card";
 import { SectionHeading } from "./section-heading";
@@ -27,7 +28,7 @@ export function HomePage({ locale }: { locale: Locale }) {
             <p className="hero__proof">{t.proof}</p>
           </div>
           <div className="hero__visual reveal reveal--delay">
-            <DnaHelix />
+            <DnaHero />
           </div>
         </div>
       </section>
