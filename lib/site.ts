@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { Locale } from "./content";
 
 export const site = {
@@ -6,6 +6,28 @@ export const site = {
   domain: "https://jacksonochoa.page",
   email: "jackson@briquette.cc",
   description: "Jackson Ochoa designs and builds useful web products for complex ideas and operations.",
+};
+
+export const siteBrandMetadata = {
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml", media: "(prefers-color-scheme: light)" },
+      { url: "/favicon-dark.svg", type: "image/svg+xml", media: "(prefers-color-scheme: dark)" },
+    ],
+    shortcut: { url: "/favicon.ico", type: "image/x-icon", media: "(prefers-color-scheme: no-preference)" },
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png", media: "(prefers-color-scheme: light)" },
+      { url: "/apple-touch-icon-dark.png", sizes: "180x180", type: "image/png", media: "(prefers-color-scheme: dark)" },
+    ],
+  },
+  manifest: "/site.webmanifest",
+} satisfies Pick<Metadata, "icons" | "manifest">;
+
+export const siteViewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#B55239" },
+    { media: "(prefers-color-scheme: dark)", color: "#181716" },
+  ],
 };
 
 export function mailto(locale: Locale) {

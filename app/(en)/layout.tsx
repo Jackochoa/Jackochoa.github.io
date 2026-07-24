@@ -2,8 +2,12 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "../globals.css";
 import { mono, sans } from "../fonts";
+import { siteBrandMetadata, siteViewport } from "@/lib/site";
+
+export const viewport = siteViewport;
 
 export const metadata: Metadata = {
+  ...siteBrandMetadata,
   metadataBase: new URL("https://jacksonochoa.page"),
   title: { default: "Jackson Ochoa — web products with clarity", template: "%s · Jackson Ochoa" },
   description: "Jackson Ochoa designs and builds useful web products for complex ideas and operations.",

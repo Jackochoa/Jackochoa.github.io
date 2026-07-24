@@ -1,0 +1,24 @@
+{
+  "name": "Jackson Ochoa",
+  "short_name": "Jackson Ochoa",
+  "description": "Productos web con criterio para ideas y operaciones complejas.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#B55239",
+  "theme_color": "#B55239",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
