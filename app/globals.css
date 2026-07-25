@@ -172,6 +172,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .footer-links a:hover, .footer-links a:focus-visible { color: var(--accent); }
 .site-nav__cta { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-strong); }
 .site-nav__cta span { color: var(--accent); }
+.site-header__social {
+  display: grid; place-items: center; width: 1.75rem; height: 1.75rem;
+  color: var(--text-dim); transition: color var(--motion-fast) var(--easing);
+}
+.site-header__social:hover, .site-header__social:focus-visible { color: var(--accent); }
+.site-header__social svg { width: 1.05rem; height: 1.05rem; fill: currentColor; }
 .language-switcher {
   display: inline-flex; align-items: center; gap: 0.35rem;
   color: var(--text-dim); font-size: 0.7rem; white-space: nowrap;

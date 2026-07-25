@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCopy, getLocalizedPath, type Locale } from "@/lib/content";
+import { linkedinPath } from "@/lib/icons";
 import { site } from "@/lib/site";
 import { LanguageSwitcher } from "./language-switcher";
 
@@ -20,6 +21,9 @@ export function SiteHeader({ locale, currentPath }: SiteHeaderProps) {
           <Link href={getLocalizedPath(locale, "/process/")}>{copy.nav.process}</Link>
           <Link className="site-nav__cta" href={getLocalizedPath(locale, "/contact/")} data-umami-event="contact_open">{copy.nav.contact}<span aria-hidden="true">→</span></Link>
         </nav>
+        <a className="site-header__social" href={site.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" data-umami-event="linkedin_click">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d={linkedinPath} /></svg>
+        </a>
         <LanguageSwitcher locale={locale} currentPath={currentPath} />
       </div>
     </header>
