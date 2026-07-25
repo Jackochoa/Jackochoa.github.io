@@ -6,6 +6,8 @@ export const site = {
   domain: "https://jacksonochoa.page",
   email: "jackson@briquette.cc",
   description: "Jackson Ochoa designs and builds useful web products for complex ideas and operations.",
+  linkedin: "https://www.linkedin.com/in/jackson-paul-ochoa-holguin-259716256",
+  github: "https://github.com/Jackochoa",
 };
 
 export const siteBrandMetadata = {

@@ -17,6 +17,8 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           <Link href={getLocalizedPath(locale, "/contact/")} data-umami-event="contact_open">{copy.nav.contact}</Link>
           <Link href={getLocalizedPath(locale, "/privacy/")}>{locale === "es" ? "Privacidad" : "Privacy"}</Link>
           <a href={`mailto:${site.email}`} data-umami-event="email_click">{site.email}</a>
+          <a href={site.linkedin} target="_blank" rel="noreferrer" data-umami-event="linkedin_click">LinkedIn<span aria-hidden="true"> ↗</span></a>
+          <a href={site.github} target="_blank" rel="noreferrer" data-umami-event="github_click">GitHub<span aria-hidden="true"> ↗</span></a>
         </div>
         <div className="footer-meta"><span>© {new Date().getFullYear()} {site.name}</span><span>{locale === "es" ? "Hecho con intención." : "Made with intention."}</span></div>
       </div>
