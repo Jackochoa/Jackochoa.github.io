@@ -311,6 +311,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   pointer-events: none; opacity: 0.55;
 }
 .tech-helix__svg { width: 100%; height: 100%; display: block; }
+/* Below ~1280px there is no gutter beside the content column — the page margin
+ * is 16-24px — so the strand runs along the edge and unavoidably grazes it by
+ * about 30px. Drop it to a texture at that point rather than hiding it, and
+ * keep this independent of the breakpoint below: tablets need it too. */
+.tech-helix__svg--edge { opacity: 0.3; }
 .tech-helix__strand {
   fill: none; stroke: var(--border-strong); stroke-width: 1.5;
 }
@@ -323,7 +328,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   font-size: 4.6px; font-weight: 700; letter-spacing: -0.04em;
 }
 @media (max-width: 900px) {
-  .tech-helix { opacity: 0.35; }
+  .tech-helix { opacity: 0.28; }
 }
 
 /* --- Project carousel ----------------------------------------------- */

@@ -17,6 +17,9 @@ const TWIST_PER_RUNG = (34.3 * Math.PI) / 180; // real B-DNA twist
 const SPIN_SPEED = 0.00022; // rad/ms, idle rotation
 const VERTICAL_SPACING = 46;
 const HELIX_ICON_SCALE = 0.72; // keep the 24-unit brand path inside the r=13 badge
+const BADGE_RADIUS = 16; // r=13 badge at its largest z-scale, plus stroke
+const MIN_GUTTER = 96; // narrower than this and there is no room beside the text
+const EDGE_RADIUS = 34; // sliver that runs along the margin when there is no gutter
 
 // The stack is repeated a few times so the helix reads as one long, continuous
 // strand instead of running out after a single pass.
@@ -57,12 +60,27 @@ export function TechHelix({ basePairs }: { basePairs: HelixRung[] }) {
     let centerX = 0;
     let radius = 0;
     let maxScroll = 0;
+    /* The helix is decoration, so it must never sit under the text. Measure the
+     * real content column and take whatever gutter is left beside it: a full
+     * strand when there is room, a sliver along the margin when there is not. */
     const measure = () => {
       const width = window.innerWidth;
       height = window.innerHeight;
-      centerX = width > 900 ? width * 0.8 : width * 0.5;
-      radius = Math.min(width * 0.09, 90);
       maxScroll = document.documentElement.scrollHeight - height;
+
+      const shell = document.querySelector(".shell");
+      const contentRight = shell ? shell.getBoundingClientRect().right : width * 0.92;
+      const gutter = width - contentRight;
+
+      if (gutter >= MIN_GUTTER) {
+        centerX = contentRight + gutter / 2;
+        radius = Math.min(gutter / 2 - BADGE_RADIUS, 90);
+      } else {
+        // Anchored past the right edge so only the near strand stays on screen.
+        centerX = width - 4;
+        radius = EDGE_RADIUS;
+      }
+      svgRef.current?.classList.toggle("tech-helix__svg--edge", gutter < MIN_GUTTER);
     };
     measure();
 
