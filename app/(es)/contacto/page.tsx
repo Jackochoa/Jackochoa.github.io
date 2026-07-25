@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   locale: "es",
   title: "Contacto",
-  description: "Contame qué necesita avanzar y en qué contexto. Respondo por correo o WhatsApp.",
+  description: "Cuéntame qué necesita avanzar y en qué contexto. Respondo por correo o WhatsApp.",
   englishPath: "/en/contact/",
   spanishPath: "/contacto/",
 });
