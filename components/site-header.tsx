@@ -18,7 +18,7 @@ export function SiteHeader({ locale, currentPath }: SiteHeaderProps) {
           <Link href={getLocalizedPath(locale, locale === "es" ? "/work/" : "/work/")}>{copy.nav.work}</Link>
           <Link href={getLocalizedPath(locale, "/about/")}>{copy.nav.about}</Link>
           <Link href={getLocalizedPath(locale, "/process/")}>{copy.nav.process}</Link>
-          <a className="site-nav__cta" href={`mailto:${site.email}`} data-umami-event="email_click">{copy.nav.contact}<span aria-hidden="true">↗</span></a>
+          <Link className="site-nav__cta" href={getLocalizedPath(locale, "/contact/")} data-umami-event="contact_open">{copy.nav.contact}<span aria-hidden="true">→</span></Link>
         </nav>
         <LanguageSwitcher locale={locale} currentPath={currentPath} />
       </div>

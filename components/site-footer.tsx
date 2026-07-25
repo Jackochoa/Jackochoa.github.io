@@ -14,6 +14,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
         <div className="footer-links">
           <Link href={getLocalizedPath(locale, "/work/")}>{copy.nav.work}</Link>
           <Link href={getLocalizedPath(locale, "/about/")}>{copy.nav.about}</Link>
+          <Link href={getLocalizedPath(locale, "/contact/")} data-umami-event="contact_open">{copy.nav.contact}</Link>
           <Link href={getLocalizedPath(locale, "/privacy/")}>{locale === "es" ? "Privacidad" : "Privacy"}</Link>
           <a href={`mailto:${site.email}`} data-umami-event="email_click">{site.email}</a>
         </div>

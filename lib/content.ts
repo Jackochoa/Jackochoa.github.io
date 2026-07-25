@@ -133,6 +133,11 @@ const copy = {
     work: { kicker: "Case studies", title: "Work with a point of view.", intro: "Sanitized stories from products, systems, science, and operations. Each one focuses on the decisions—not just the screenshots.", all: "All work" },
     about: { kicker: "About", title: "Product thinking with an engineer’s follow-through.", intro: "I’m Jackson Ochoa, an independent product engineer building useful systems across web, education, science, and operations.", body: "I work end-to-end: understand the problem, make the experience legible, build the system, and leave it in a state another human can trust. The stack changes with the problem; the standard does not.", principles: [["Make the problem visible", "Good delivery starts before the first component. I name the users, constraints, and decision that matters."], ["Keep complexity useful", "Architecture should make the next change safer, not turn today’s work into a ceremony."], ["Prove the edges", "Tests, accessibility, security, and honest content are part of the product—not cleanup after it."]], portrait: "Portrait of Jackson Ochoa, independent product engineer." },
     process: { kicker: "Process", title: "A clear path through uncertain work.", intro: "The method is lightweight enough for a small team and rigorous enough for a product people depend on.", phases: [["Discover", "Map the people, problem, constraints, and evidence before proposing a solution."], ["Design", "Shape the content and interface around the decisions users actually need to make."], ["Build", "Deliver a vertical slice, keep the architecture legible, and use automation where it earns its place."], ["Verify", "Review behavior, keyboard access, performance, security, and maintainability before calling it done."], ["Evolve", "Document the reasoning so the product can keep moving after handoff."]], close: "The goal is not more software. It is less uncertainty between an idea and its useful form." },
+    contact: {
+      kicker: "Contact",
+      title: "Tell me what needs to move.",
+      intro: "The more context you bring — the users, the constraint, the part that is stuck — the more useful my first reply can be.",
+    },
     privacy: { kicker: "Privacy", title: "Small site, small footprint.", intro: "This portfolio uses the least data needed to understand whether the work is reaching the right people.", points: ["Contact-form details are sent directly to Formspree so Jackson can reply; this site does not store them. Formspree processes that data under its own privacy policy.", "Email opens your own mail client. WhatsApp opens an external WhatsApp conversation and is subject to WhatsApp’s privacy policy.", "Optional Umami analytics measure anonymous page views and selected interface events without cookies or email addresses.", "GitHub Pages and connected services may process technical request data under their own policies.", "Case studies are sanitized and should never be treated as access to private project code or data."], updated: "Last reviewed July 2026." },
   },
   es: {
@@ -183,6 +188,11 @@ const copy = {
     work: { kicker: "Casos", title: "Trabajo con criterio.", intro: "Historias sanitizadas de productos, sistemas, ciencia y operaciones. Cada una se enfoca en las decisiones, no solo en las capturas.", all: "Todos los proyectos" },
     about: { kicker: "Sobre mí", title: "Pensamiento de producto con seguimiento de ingeniero.", intro: "Soy Jackson Ochoa, product engineer independiente. Construyo sistemas útiles para web, educación, ciencia y operaciones.", body: "Trabajo end-to-end: entiendo el problema, vuelvo legible la experiencia, construyo el sistema y lo dejo en un estado que otra persona pueda confiar. El stack cambia con el problema; el estándar no.", principles: [["Hacer visible el problema", "La buena entrega empieza antes del primer componente. Nombramos usuarios, restricciones y decisión importante."], ["Mantener útil la complejidad", "La arquitectura debe volver más segura la próxima modificación, no convertir el trabajo en ceremonia."], ["Probar los bordes", "Tests, accesibilidad, seguridad y contenido honesto son parte del producto." ]], portrait: "Retrato de Jackson Ochoa, product engineer independiente." },
     process: { kicker: "Proceso", title: "Un camino claro por trabajo incierto.", intro: "El método es liviano para un equipo pequeño y riguroso para un producto del que la gente depende.", phases: [["Descubrir", "Mapear personas, problema, restricciones y evidencia antes de proponer solución."], ["Diseñar", "Dar forma a contenido e interfaz alrededor de las decisiones reales del usuario."], ["Construir", "Entregar un slice vertical, mantener arquitectura legible y automatizar donde valga la pena."], ["Verificar", "Revisar comportamiento, teclado, rendimiento, seguridad y mantenimiento antes de darlo por hecho."], ["Evolucionar", "Documentar el criterio para que el producto siga avanzando después de la entrega."]], close: "El objetivo no es más software. Es menos incertidumbre entre una idea y su forma útil." },
+    contact: {
+      kicker: "Contacto",
+      title: "Contame qué necesita avanzar.",
+      intro: "Mientras más contexto traigas —los usuarios, la restricción, la parte que está trabada— más útil va a ser mi primera respuesta.",
+    },
     privacy: { kicker: "Privacidad", title: "Sitio pequeño, huella pequeña.", intro: "Este portafolio usa los datos mínimos para entender si el trabajo llega a las personas correctas.", points: ["Los datos del formulario se envían directamente a Formspree para que Jackson pueda responder; este sitio no los guarda. Formspree procesa esos datos según su propia política de privacidad.", "El email abre tu propio cliente de correo. WhatsApp abre una conversación externa y queda sujeto a la política de privacidad de WhatsApp.", "La analítica opcional de Umami mide vistas anónimas y eventos puntuales sin cookies ni correos.", "GitHub Pages y servicios conectados pueden procesar datos técnicos según sus propias políticas.", "Los casos están sanitizados y nunca implican acceso a código o datos privados."], updated: "Revisado en julio de 2026." },
   },
 } as const;
@@ -336,6 +346,7 @@ export function getLocalizedPath(locale: Locale, path: string) {
     if (path === "/about/") return "/sobre-mi/";
     if (path === "/process/") return "/proceso/";
     if (path === "/privacy/") return "/privacidad/";
+    if (path === "/contact/") return "/contacto/";
     return path;
   }
   return path.startsWith("/en/") ? path : (path === "/" ? "/en/" : `/en${path}`);
@@ -349,5 +360,6 @@ export function getEnglishPathFromSpanish(path: string) {
   if (path === "/sobre-mi/" || path === "/sobre-mi") return "/en/about/";
   if (path === "/proceso/" || path === "/proceso") return "/en/process/";
   if (path === "/privacidad/" || path === "/privacidad") return "/en/privacy/";
+  if (path === "/contacto/" || path === "/contacto") return "/en/contact/";
   return `/en${path}`;
 }

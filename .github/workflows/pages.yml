@@ -29,6 +29,10 @@ jobs:
         run: npm ci
       - name: Verify and build static export
         run: npm run verify
+        env:
+          # Without this the contact form renders its "temporarily offline"
+          # state and falls back to the email and WhatsApp links beside it.
+          NEXT_PUBLIC_FORMSPREE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ENDPOINT }}
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

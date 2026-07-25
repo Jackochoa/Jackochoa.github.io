@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getCopy, getLocalizedPath, stackGroups, stackNote, stackProof, type Locale, type StackEntry } from "@/lib/content";
 import { iconPath } from "@/lib/icons";
-import { EmailCta } from "./email-cta";
+import { ContactCta } from "./contact-cta";
 import { SystemFlow } from "./motifs";
 import { PageShell } from "./page-shell";
 import { ProjectCarousel } from "./project-carousel";
@@ -20,7 +20,7 @@ export function HomePage({ locale }: { locale: Locale }) {
             <h1>{t.title}</h1>
             <p className="hero__intro">{t.intro}</p>
             <div className="hero__actions">
-              <EmailCta locale={locale} label={t.primary} />
+              <ContactCta locale={locale} label={t.primary} />
               <Link className="button button--ghost" href={workPath}>{t.secondary}<span aria-hidden="true">↓</span></Link>
             </div>
             <p className="hero__proof">{t.proof}</p>
@@ -103,7 +103,7 @@ export function HomePage({ locale }: { locale: Locale }) {
             <h2>{t.contact[1]}</h2>
             <p>{t.contact[2]}</p>
             <div className="hero__actions">
-              <EmailCta locale={locale} label={t.primary} />
+              <ContactCta locale={locale} label={t.primary} />
               <a className="button button--ghost contact-panel__whatsapp" href="https://wa.me/593980559255">WhatsApp<span aria-hidden="true">↗</span></a>
             </div>
           </div>
