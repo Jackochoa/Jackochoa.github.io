@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
+import { Fragment, useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 import type { HelixBase, HelixRung } from "@/lib/helix";
 
 /* Constant background: a real double helix rendered as 2D-projected 3D math
@@ -50,23 +50,37 @@ export function TechHelix({ basePairs }: { basePairs: HelixRung[] }) {
     let raf = 0;
     let last = performance.now();
 
+    /* Reading scrollHeight forces a layout, so it is measured on resize rather
+     * than every frame. Page height is otherwise stable: case-study images
+     * reserve their space through aspect-ratio before they load. */
+    let height = 0;
+    let centerX = 0;
+    let radius = 0;
+    let maxScroll = 0;
+    const measure = () => {
+      const width = window.innerWidth;
+      height = window.innerHeight;
+      centerX = width > 900 ? width * 0.8 : width * 0.5;
+      radius = Math.min(width * 0.09, 90);
+      maxScroll = document.documentElement.scrollHeight - height;
+    };
+    measure();
+
+    // Reused across frames so a 60fps loop does not allocate two points per rung.
+    const pointsA = rungs.map(() => ({ x: 0, y: 0 }));
+    const pointsB = rungs.map(() => ({ x: 0, y: 0 }));
+    // Last known depth order per rung; a swap only happens when this flips.
+    const aWasInFront: (boolean | undefined)[] = rungs.map(() => undefined);
+
     const render = (spinAngle: number) => {
       const svg = svgRef.current;
       if (!svg) return;
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      const centerX = width > 900 ? width * 0.8 : width * 0.5;
-      const radius = Math.min(width * 0.09, 90);
 
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const scrollRatio = maxScroll > 0 ? window.scrollY / maxScroll : 0;
       const span = (rungs.length - 1) * VERTICAL_SPACING;
       const verticalOffset = (scrollRatio - 0.5) * span * 0.85;
       const centerY = height * 0.5 + verticalOffset;
       const totalAngle = spinAngle + scrollRatio * Math.PI * 2;
-
-      const pointsA: { x: number; y: number }[] = [];
-      const pointsB: { x: number; y: number }[] = [];
 
       rungs.forEach((rung, i) => {
         const y = centerY + (i - (rungs.length - 1) / 2) * VERTICAL_SPACING;
@@ -75,8 +89,8 @@ export function TechHelix({ basePairs }: { basePairs: HelixRung[] }) {
         const zA = Math.sin(a);
         const xB = centerX + Math.cos(a + Math.PI) * radius;
         const zB = Math.sin(a + Math.PI);
-        pointsA.push({ x: xA, y });
-        pointsB.push({ x: xB, y });
+        pointsA[i].x = xA; pointsA[i].y = y;
+        pointsB[i].x = xB; pointsB[i].y = y;
 
         const scaleA = 0.75 + (zA + 1) * 0.2;
         const scaleB = 0.75 + (zB + 1) * 0.2;
@@ -103,11 +117,13 @@ export function TechHelix({ basePairs }: { basePairs: HelixRung[] }) {
           badgeB.setAttribute("transform", `translate(${xB} ${y}) scale(${scaleB})`);
           badgeB.setAttribute("opacity", String(opB));
         }
-        // Reorder so the nearer base pair paints on top.
-        const layer = layerRef.current;
-        if (layer && badgeA && badgeB) {
-          if (aInFront) layer.append(badgeB, badgeA);
-          else layer.append(badgeA, badgeB);
+        /* Reorder so the nearer base of the pair paints on top. Each pair spends
+         * most of its rotation on the same side, so this fires on a handful of
+         * rungs per frame instead of moving every node. */
+        if (badgeA && badgeB && aWasInFront[i] !== aInFront) {
+          aWasInFront[i] = aInFront;
+          if (aInFront) badgeB.after(badgeA);
+          else badgeA.after(badgeB);
         }
       });
 
@@ -127,9 +143,17 @@ export function TechHelix({ basePairs }: { basePairs: HelixRung[] }) {
       strandBRef.current?.setAttribute("d", smooth(pointsB));
     };
 
+    const onResize = () => {
+      measure();
+      // The animation loop picks the new values up on its own; a static render
+      // has to be told to redraw.
+      if (reduceMotion) render(0);
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+
     if (reduceMotion) {
       render(0);
-      return;
+      return () => window.removeEventListener("resize", onResize);
     }
 
     const loop = (now: number) => {
@@ -139,7 +163,10 @@ export function TechHelix({ basePairs }: { basePairs: HelixRung[] }) {
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
+    };
   }, [rungs, mounted]);
 
   if (!mounted) return <div className="tech-helix" aria-hidden="true" />;
@@ -159,25 +186,25 @@ export function TechHelix({ basePairs }: { basePairs: HelixRung[] }) {
             />
           ))}
         </g>
+        {/* Each pair is emitted adjacent so depth ordering is a swap between two
+            siblings rather than a re-append of the whole layer. */}
         <g ref={layerRef}>
           {rungs.map((rung, i) => (
-            <HelixBadge
-              key={`a-${i}-${rung.left.name}`}
-              refCb={(el) => { badgeARefs.current[i] = el; }}
-              base={rung.left}
-              color={rung.color}
-            />
-          ))}
-          {rungs.map((rung, i) =>
-            rung.right ? (
+            <Fragment key={`pair-${i}-${rung.left.name}`}>
               <HelixBadge
-                key={`b-${i}-${rung.right.name}`}
-                refCb={(el) => { badgeBRefs.current[i] = el; }}
-                base={rung.right}
+                refCb={(el) => { badgeARefs.current[i] = el; }}
+                base={rung.left}
                 color={rung.color}
               />
-            ) : null
-          )}
+              {rung.right ? (
+                <HelixBadge
+                  refCb={(el) => { badgeBRefs.current[i] = el; }}
+                  base={rung.right}
+                  color={rung.color}
+                />
+              ) : null}
+            </Fragment>
+          ))}
         </g>
       </svg>
     </div>

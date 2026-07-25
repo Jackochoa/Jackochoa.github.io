@@ -5,7 +5,7 @@ Public source for [jacksonochoa.page](https://jacksonochoa.page).
 ## Stack
 
 - Next.js App Router with static export
-- React + TypeScript + Tailwind CSS
+- React + TypeScript, hand-written CSS in `app/globals.css`
 - GitHub Pages production, Vercel pull-request previews
 - Optional cookieless Umami analytics
 
@@ -23,6 +23,11 @@ npm run verify
 ```
 
 The production export is generated in `out/`.
+
+After adding a screenshot to `public/images/`, run `npm run images` to rewrite it
+as WebP at the size it is actually displayed. `next.config.ts` sets
+`images.unoptimized`, so whatever is committed there is what the browser
+downloads. See `docs/asset-register.md`.
 
 ## Content safety
 
