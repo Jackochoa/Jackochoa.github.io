@@ -627,8 +627,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .motif-band { border-block: 1px solid var(--border); background: color-mix(in srgb, var(--surface-2) 92%, transparent); }
 .motif-band__inner { display: grid; place-items: center; gap: 1rem; padding: clamp(2.5rem, 5vw, 4rem) 0; }
 .motif-band .motif--map { max-width: 34rem; }
-.helix-band__visual { width: 100%; max-width: 34rem; overflow: hidden; }
-.helix-band__svg { width: 100%; height: auto; display: block; }
 .motif-band__note { margin: 0; color: var(--text-dim); font-family: var(--font-mono), var(--font-mono-fallback); font-size: var(--type-label); letter-spacing: 0.08em; text-transform: uppercase; }
 /* Circos as a project-card visual. */
 .project-card__visual .motif--circos { position: absolute; inset: 0; display: grid; place-items: center; padding: 1.5rem; }
