@@ -15,7 +15,7 @@ export function ProcessPage({ locale }: { locale: Locale }) {
   const copy = getCopy(locale).process;
   return <PageShell locale={locale} currentPath={getLocalizedPath(locale, "/process/")}>
     <section className="page-hero"><div className="shell"><p className="eyebrow"><span aria-hidden="true">✳</span>{copy.kicker}</p><h1>{copy.title}</h1><p className="page-hero__intro">{copy.intro}</p></div></section>
-    <section className="section"><div className="shell"><div className="phase-list">{copy.phases.map(([title, body], index) => <article className="phase" key={title}><span className="phase__number">0{index + 1}</span><h2>{title}</h2><p>{body}</p></article>)}</div><div className="section-heading" style={{ marginTop: "5rem" }}><SectionHeading kicker={locale === "es" ? "El criterio" : "The standard"} title={copy.close} /></div></div></section>
+    <section className="section"><div className="shell"><div className="phase-list">{copy.phases.map(([title, body, artifactTitle, artifactBody], index) => <article className="phase" key={title}><span className="phase__number">0{index + 1}</span><h2>{title}</h2><p>{body}</p><div className="phase__artifact"><span className="phase__artifact-label">{copy.artifactLabel}</span><strong>{artifactTitle}</strong><p>{artifactBody}</p></div></article>)}</div><div className="section-heading" style={{ marginTop: "5rem" }}><SectionHeading kicker={locale === "es" ? "El criterio" : "The standard"} title={copy.close} /></div></div></section>
   </PageShell>;
 }
 
