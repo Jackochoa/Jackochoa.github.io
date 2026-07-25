@@ -282,6 +282,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
   position: absolute; right: 19%; top: 17%; width: 3rem; height: 1px;
   background: var(--border-strong); transform: rotate(44deg);
 }
+
+/* --- Card cover art ------------------------------------------------- */
+.project-card__cover {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover; object-position: top center;
+}
+/* Nothing is laid over the screenshot, so it needs no scrim — just a hairline
+ * so a light capture does not bleed into the card surface below it. */
+.project-card__visual--media { background: var(--surface-2); }
 .project-card__body { display: flex; flex-direction: column; padding: 1.5rem; }
 .project-card__meta {
   display: flex; justify-content: space-between; gap: 0.8rem;
