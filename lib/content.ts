@@ -44,42 +44,42 @@ type ProjectSlug = "e-grua" | "briquette-lms" | "rust-dashboard" | "mitocircos-s
 const projectMedia = {
   en: {
     "e-grua": [
-      { path: "/images/egrua-client-request.png", type: "screenshot", alt: "E-Grúa customer request screen on mobile.", caption: "Customer request flow for field service.", aspectRatio: "390 / 844" },
-      { path: "/images/egrua-operator-panel.png", type: "screenshot", alt: "E-Grúa operator panel on mobile.", caption: "Operator panel for reviewing and coordinating services.", aspectRatio: "390 / 844" },
-      { path: "/images/egrua-admin-dashboard.png", type: "screenshot", alt: "E-Grúa administration dashboard.", caption: "Administration dashboard for operational oversight.", aspectRatio: "1440 / 900" },
+      { path: "/images/egrua-client-request.webp", type: "screenshot", alt: "E-Grúa customer request screen on mobile.", caption: "Customer request flow for field service.", aspectRatio: "390 / 844" },
+      { path: "/images/egrua-operator-panel.webp", type: "screenshot", alt: "E-Grúa operator panel on mobile.", caption: "Operator panel for reviewing and coordinating services.", aspectRatio: "390 / 844" },
+      { path: "/images/egrua-admin-dashboard.webp", type: "screenshot", alt: "E-Grúa administration dashboard.", caption: "Administration dashboard for operational oversight.", aspectRatio: "1440 / 900" },
     ],
     "briquette-lms": [
-      { path: "/images/briquette-cover.png", type: "cover", alt: "Briquette LMS course interface.", caption: "Learning system cover surface.", aspectRatio: "16 / 9" },
-      { path: "/images/briquette-login.png", type: "screenshot", alt: "Briquette LMS login screen.", caption: "Role-aware access to the learning system.", aspectRatio: "1470 / 718" },
-      { path: "/images/briquette-student-dashboard.png", type: "screenshot", alt: "Briquette LMS student dashboard.", caption: "Student dashboard for modules and progress.", aspectRatio: "1588 / 729" },
-      { path: "/images/briquette-admin-dashboard.png", type: "screenshot", alt: "Briquette LMS administration dashboard in a QA environment.", caption: "Administration panel from a sanitized QA environment.", aspectRatio: "1440 / 2337" },
-      { path: "/images/briquette-teacher-dashboard.png", type: "screenshot", alt: "Briquette LMS teacher dashboard in a QA environment.", caption: "Teacher dashboard role surface in QA.", aspectRatio: "1440 / 900" },
+      { path: "/images/briquette-cover.webp", type: "cover", alt: "Briquette LMS course interface.", caption: "Learning system cover surface.", aspectRatio: "16 / 9" },
+      { path: "/images/briquette-login.webp", type: "screenshot", alt: "Briquette LMS login screen.", caption: "Role-aware access to the learning system.", aspectRatio: "1470 / 718" },
+      { path: "/images/briquette-student-dashboard.webp", type: "screenshot", alt: "Briquette LMS student dashboard.", caption: "Student dashboard for modules and progress.", aspectRatio: "1588 / 729" },
+      { path: "/images/briquette-admin-dashboard.webp", type: "screenshot", alt: "Briquette LMS administration dashboard in a QA environment.", caption: "Administration panel from a sanitized QA environment.", aspectRatio: "1440 / 2337" },
+      { path: "/images/briquette-teacher-dashboard.webp", type: "screenshot", alt: "Briquette LMS teacher dashboard in a QA environment.", caption: "Teacher dashboard role surface in QA.", aspectRatio: "1440 / 900" },
     ],
     "rust-dashboard": [
-      { path: "/images/rust-dashboard.png", type: "screenshot", alt: "Rust Dashboard operational monitoring interface.", caption: "Operational dashboard for system and Docker signals.", aspectRatio: "1583 / 714" },
+      { path: "/images/rust-dashboard.webp", type: "screenshot", alt: "Rust Dashboard operational monitoring interface.", caption: "Operational dashboard for system and Docker signals.", aspectRatio: "1583 / 714" },
     ],
     "mitocircos-studio": [
-      { path: "/images/mitocircos-studio.png", type: "screenshot", alt: "MitoCircos Studio mitochondrial data visualization.", caption: "Interactive visual studio for mitochondrial data tracks.", aspectRatio: "1440 / 1000" },
+      { path: "/images/mitocircos-studio.webp", type: "screenshot", alt: "MitoCircos Studio mitochondrial data visualization.", caption: "Interactive visual studio for mitochondrial data tracks.", aspectRatio: "1440 / 1000" },
     ],
   },
   es: {
     "e-grua": [
-      { path: "/images/egrua-client-request.png", type: "screenshot", alt: "Pantalla móvil de solicitud de cliente en E-Grúa.", caption: "Flujo de pedido del cliente para un servicio de campo.", aspectRatio: "390 / 844" },
-      { path: "/images/egrua-operator-panel.png", type: "screenshot", alt: "Panel móvil del operador de E-Grúa.", caption: "Panel del operador para revisar y coordinar servicios.", aspectRatio: "390 / 844" },
-      { path: "/images/egrua-admin-dashboard.png", type: "screenshot", alt: "Dashboard administrativo de E-Grúa.", caption: "Dashboard administrativo para supervisar operaciones.", aspectRatio: "1440 / 900" },
+      { path: "/images/egrua-client-request.webp", type: "screenshot", alt: "Pantalla móvil de solicitud de cliente en E-Grúa.", caption: "Flujo de pedido del cliente para un servicio de campo.", aspectRatio: "390 / 844" },
+      { path: "/images/egrua-operator-panel.webp", type: "screenshot", alt: "Panel móvil del operador de E-Grúa.", caption: "Panel del operador para revisar y coordinar servicios.", aspectRatio: "390 / 844" },
+      { path: "/images/egrua-admin-dashboard.webp", type: "screenshot", alt: "Dashboard administrativo de E-Grúa.", caption: "Dashboard administrativo para supervisar operaciones.", aspectRatio: "1440 / 900" },
     ],
     "briquette-lms": [
-      { path: "/images/briquette-cover.png", type: "cover", alt: "Interfaz del curso Briquette LMS.", caption: "Superficie de portada del sistema de aprendizaje.", aspectRatio: "16 / 9" },
-      { path: "/images/briquette-login.png", type: "screenshot", alt: "Pantalla de acceso de Briquette LMS.", caption: "Acceso por rol al sistema de aprendizaje.", aspectRatio: "1470 / 718" },
-      { path: "/images/briquette-student-dashboard.png", type: "screenshot", alt: "Dashboard del estudiante de Briquette LMS.", caption: "Dashboard del estudiante para módulos y progreso.", aspectRatio: "1588 / 729" },
-      { path: "/images/briquette-admin-dashboard.png", type: "screenshot", alt: "Dashboard administrativo de Briquette LMS en un entorno QA.", caption: "Panel administrativo de un entorno QA sanitizado.", aspectRatio: "1440 / 2337" },
-      { path: "/images/briquette-teacher-dashboard.png", type: "screenshot", alt: "Dashboard docente de Briquette LMS en un entorno QA.", caption: "Superficie del rol docente en QA.", aspectRatio: "1440 / 900" },
+      { path: "/images/briquette-cover.webp", type: "cover", alt: "Interfaz del curso Briquette LMS.", caption: "Superficie de portada del sistema de aprendizaje.", aspectRatio: "16 / 9" },
+      { path: "/images/briquette-login.webp", type: "screenshot", alt: "Pantalla de acceso de Briquette LMS.", caption: "Acceso por rol al sistema de aprendizaje.", aspectRatio: "1470 / 718" },
+      { path: "/images/briquette-student-dashboard.webp", type: "screenshot", alt: "Dashboard del estudiante de Briquette LMS.", caption: "Dashboard del estudiante para módulos y progreso.", aspectRatio: "1588 / 729" },
+      { path: "/images/briquette-admin-dashboard.webp", type: "screenshot", alt: "Dashboard administrativo de Briquette LMS en un entorno QA.", caption: "Panel administrativo de un entorno QA sanitizado.", aspectRatio: "1440 / 2337" },
+      { path: "/images/briquette-teacher-dashboard.webp", type: "screenshot", alt: "Dashboard docente de Briquette LMS en un entorno QA.", caption: "Superficie del rol docente en QA.", aspectRatio: "1440 / 900" },
     ],
     "rust-dashboard": [
-      { path: "/images/rust-dashboard.png", type: "screenshot", alt: "Interfaz operativa de Rust Dashboard.", caption: "Dashboard operativo para señales del sistema y Docker.", aspectRatio: "1583 / 714" },
+      { path: "/images/rust-dashboard.webp", type: "screenshot", alt: "Interfaz operativa de Rust Dashboard.", caption: "Dashboard operativo para señales del sistema y Docker.", aspectRatio: "1583 / 714" },
     ],
     "mitocircos-studio": [
-      { path: "/images/mitocircos-studio.png", type: "screenshot", alt: "Visualización de datos mitocondriales en MitoCircos Studio.", caption: "Estudio visual interactivo para pistas de datos mitocondriales.", aspectRatio: "1440 / 1000" },
+      { path: "/images/mitocircos-studio.webp", type: "screenshot", alt: "Visualización de datos mitocondriales en MitoCircos Studio.", caption: "Estudio visual interactivo para pistas de datos mitocondriales.", aspectRatio: "1440 / 1000" },
     ],
   },
 } satisfies Record<Locale, Record<ProjectSlug, ProjectCase["media"]>>;

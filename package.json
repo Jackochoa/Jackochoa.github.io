@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "verify": "npm run typecheck && npm run lint && npm run test && npm run build"
+    "verify": "npm run typecheck && npm run lint && npm run test && npm run build",
+    "images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "motion": "12.42.2",
@@ -21,7 +22,6 @@
     "simple-icons": "16.27.0"
   },
   "devDependencies": {
-    "zod": "^4.0.0",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
@@ -29,8 +29,10 @@
     "eslint": "^9.0.0",
     "eslint-config-next": "^16.2.9",
     "jsdom": "^26.0.0",
+    "sharp": "^0.35.3",
     "typescript": "^5.9.0",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "zod": "^4.0.0"
   },
   "overrides": {
     "sharp": "^0.35.3"

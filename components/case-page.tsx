@@ -39,5 +39,13 @@ export function CasePage({ locale, slug }: { locale: Locale; slug: string }) {
 function Meta({ label, value }: { label: string; value: string }) { return <div><dt>{label}</dt><dd>{value}</dd></div>; }
 function CaseSection({ title, body }: { title: string; body: string }) { return <section className="case-content__section"><h2>{title}</h2><p>{body}</p></section>; }
 function CaseList({ title, items }: { title: string; items: string[] }) { return <section className="case-content__section"><h2>{title}</h2><ul>{items.map((item) => <li key={item}>{item}</li>)}</ul></section>; }
-function MediaGallery({ project, title, pending }: { project: ProjectCase; title: string; pending: string }) { return <section className="case-content__section"><h2>{title}</h2>{project.media.length ? <div className="case-media">{project.media.map((media) => <figure key={media.path}><img src={media.path} alt={media.alt} /><figcaption>{media.caption}</figcaption></figure>)}</div> : <p className="case-media__pending">{pending}</p>}</section>; }
+function MediaGallery({ project, title, pending }: { project: ProjectCase; title: string; pending: string }) { return <section className="case-content__section"><h2>{title}</h2>{project.media.length ? <div className="case-media">{project.media.map((media) => <figure key={media.path}><CaseImage media={media} /><figcaption>{media.caption}</figcaption></figure>)}</div> : <p className="case-media__pending">{pending}</p>}</section>; }
+
+/* images.unoptimized is on for static export, so next/image would only wrap a
+ * plain <img> here. The declared aspect ratio reserves the space instead, which
+ * is what next/image's width/height would have bought us. */
+function CaseImage({ media }: { media: ProjectCase["media"][number] }) {
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={media.path} alt={media.alt} style={{ aspectRatio: media.aspectRatio }} loading="lazy" decoding="async" />;
+}
 function ArchitectureDiagram({ label }: { label: string }) { return <div className="case-architecture" aria-label={label}><svg viewBox="0 0 400 260" role="img" aria-hidden="true"><path d="M70 130H170M230 130H330M200 55V205" /><path className="case-architecture__flow" d="M95 102L170 102M230 158L305 158" /><circle cx="70" cy="130" r="18" /><circle cx="200" cy="55" r="18" /><circle cx="200" cy="130" r="28" /><circle cx="200" cy="205" r="18" /><circle cx="330" cy="130" r="18" /></svg><span>{label}</span></div>; }
