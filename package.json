@@ -2,7 +2,7 @@
   "name": "jacksonochoa-portfolio",
   "version": "0.1.0",
   "private": true,
-  "description": "Jackson Ochoa \u2014 end-to-end web products portfolio",
+  "description": "Jackson Ochoa — end-to-end web products portfolio",
   "scripts": {
     "dev": "next dev",
     "build": "next build && node scripts/copy-pages-files.mjs",
@@ -21,7 +21,7 @@
     "simple-icons": "16.27.0"
   },
   "devDependencies": {
-    "@types/node": "^24.0.0",
+    "@types/node": "^26.1.1",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^5.0.0",
@@ -30,7 +30,7 @@
     "jsdom": "^26.0.0",
     "sharp": "^0.35.3",
     "typescript": "^5.9.0",
-    "vitest": "^3.2.4",
+    "vitest": "^4.1.10",
     "zod": "^4.0.0"
   },
   "overrides": {
