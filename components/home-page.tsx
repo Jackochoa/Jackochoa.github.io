@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getCopy, getLocalizedPath, stackGroups, stackNote, stackProof, type Locale, type StackEntry } from "@/lib/content";
 import { iconPath } from "@/lib/icons";
 import { ContactCta } from "./contact-cta";
-import { SystemFlow } from "./motifs";
+import { TransformationMap } from "./motifs";
 import { PageShell } from "./page-shell";
 import { ProjectCarousel } from "./project-carousel";
 import { SectionHeading } from "./section-heading";
@@ -45,8 +45,8 @@ export function HomePage({ locale }: { locale: Locale }) {
 
       <section className="motif-band" aria-hidden="true">
         <div className="shell motif-band__inner">
-          <SystemFlow />
-          <p className="motif-band__note">{locale === "es" ? "red → arquitectura → ciencia" : "network → architecture → science"}</p>
+          <TransformationMap />
+          <p className="motif-band__note">{locale === "es" ? "Contexto → Sistema → Decisión" : "Context → System → Decision"}</p>
         </div>
       </section>
 

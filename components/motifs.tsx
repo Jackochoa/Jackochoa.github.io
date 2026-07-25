@@ -23,21 +23,50 @@ export function CircosArcs({ className = "" }: { className?: string }) {
   );
 }
 
-export function SystemFlow({ className = "" }: { className?: string }) {
-  const nodes = [40, 120, 200, 280, 360];
+/* One strand crossing three acts: scattered context on the left resolves
+ * into a straight system in the middle, then closes into a legible decision
+ * on the right — literally, the sentence "I build systems so people can
+ * decide with confidence." The strand and every element on it are always
+ * fully drawn; a small warm pulse loops along it every 5.5s as the only
+ * moving accent, so a static screenshot already reads as the finished
+ * illustration, not a mid-animation frame. Global prefers-reduced-motion
+ * freezes it, same as every other motif. */
+const STRAND_PATH = "M55,70 Q95,60 115,95 Q140,115 155,100 L187,100 L251,100 L315,100 L410,100";
+
+export function TransformationMap({ className = "" }: { className?: string }) {
   return (
-    <span className={`motif motif--flow ${className}`} aria-hidden="true">
-      <svg viewBox="0 0 400 200" fill="none">
-        {/* network layer */}
-        {nodes.map((x) => <circle key={x} className="motif__node" cx={x} cy="28" r="6" />)}
-        <path className="motif__strand" d="M40 28H360" />
-        {/* architecture layer */}
-        <rect className="motif__block" x="90" y="82" width="100" height="36" rx="4" />
-        <rect className="motif__block" x="210" y="82" width="100" height="36" rx="4" />
-        {/* science layer */}
-        <path className="motif__wave" d="M40 168 Q100 128 160 168 T280 168 T400 168" />
-        {/* flows between layers */}
-        <path className="motif__flow" d="M120 34V82M280 34V82M140 118V150M260 118V150" />
+    <span className={`motif motif--map ${className}`} aria-hidden="true">
+      <svg viewBox="0 0 480 200" fill="none">
+        {/* Context: signals that never made it onto the strand — dispersed, some
+            loosely linked, none yet resolved. */}
+        <circle className="motif__node motif__node--noise" cx="30" cy="120" r="3" />
+        <circle className="motif__node motif__node--noise" cx="85" cy="145" r="2.5" />
+        <path className="motif__noise" d="M30,120 L55,70" />
+        <path className="motif__noise" d="M85,145 L115,95" />
+
+        <path className="motif__strand" d={STRAND_PATH} />
+
+        {/* Context nodes riding the strand. */}
+        <circle className="motif__node motif__cascade" cx="55" cy="70" r="4" style={{ animationDelay: "0s" }} />
+        <circle className="motif__node motif__cascade" cx="115" cy="95" r="3.5" style={{ animationDelay: "0.3s" }} />
+
+        {/* System: the same line, straightened into interface / API / database. */}
+        <rect className="motif__block motif__cascade" x="165" y="86" width="44" height="28" rx="4" style={{ animationDelay: "0.6s" }} />
+        <rect className="motif__block motif__cascade" x="229" y="86" width="44" height="28" rx="4" style={{ animationDelay: "0.9s" }} />
+        <rect className="motif__block motif__cascade" x="293" y="86" width="44" height="28" rx="4" style={{ animationDelay: "1.2s" }} />
+
+        {/* Decision: the strand closes into a dial with one warm center. */}
+        <g className="motif__ring-spin">
+          <circle className="motif__ring motif__ring--map" cx="410" cy="100" r="34" strokeDasharray="8 10" />
+        </g>
+        <circle className="motif__ring motif__ring--inner" cx="410" cy="100" r="22" />
+        <path className="motif__tick" d="M425,126 L429,132.9" />
+        <path className="motif__tick" d="M395,126 L391,132.9" />
+        <path className="motif__tick" d="M395,74 L391,67.1" />
+        <path className="motif__tick" d="M425,74 L429,67.1" />
+        <circle className="motif__core motif__cascade" cx="410" cy="100" r="6" style={{ animationDelay: "1.5s" }} />
+
+        <circle className="motif__pulse" r="4" style={{ offsetPath: `path('${STRAND_PATH}')` }} />
       </svg>
     </span>
   );

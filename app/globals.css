@@ -34,6 +34,7 @@
   --accent-hover:  #08564C;
   --accent-soft:   rgba(11, 110, 97, 0.10);
   --accent-bright: #00E5CC;  /* only on dark surfaces */
+  --accent-warm:   #B55239;  /* personal mark — portrait jacket, TransformationMap's decision point. One point of warmth against the teal system, not a second brand. */
 
   /* --- Status --------------------------------------------------------- */
   --ok:   #15803D;
@@ -599,10 +600,22 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .motif__wave { stroke: var(--accent); stroke-width: 2; opacity: 0.7; }
 .motif__flow { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 6 6; animation: flow-dash 2s linear infinite; }
 
+/* --- Transformation map: context → system → decision ----------------- */
+.motif__node--noise { fill: var(--border-strong); animation: node-pulse 4s ease-in-out infinite; }
+.motif__noise { stroke: var(--border-strong); stroke-width: 1; stroke-dasharray: 2 4; opacity: 0.6; }
+.motif__cascade { animation: beat 3s ease-in-out infinite; }
+.motif__ring--map { stroke: var(--accent); stroke-width: 2; }
+.motif__ring-spin { transform-origin: 410px 100px; animation: circos-spin 18s linear infinite; }
+.motif__tick { stroke: var(--border-strong); stroke-width: 1.5; stroke-linecap: round; }
+.motif__core { fill: var(--accent-warm); }
+/* The one moving accent: a warm point that travels the strand every 5.5s and
+ * fades at both ends of the loop, so it never visibly teleports back to start. */
+.motif__pulse { fill: var(--accent-warm); filter: drop-shadow(0 0 3px var(--accent-warm)); animation: travel 5.5s linear infinite; }
+
 /* Flow band — one contained full-width motif. */
 .motif-band { border-block: 1px solid var(--border); background: color-mix(in srgb, var(--surface-2) 92%, transparent); }
 .motif-band__inner { display: grid; place-items: center; gap: 1rem; padding: clamp(2.5rem, 5vw, 4rem) 0; }
-.motif-band .motif--flow { max-width: 30rem; }
+.motif-band .motif--map { max-width: 34rem; }
 .motif-band__note { margin: 0; color: var(--text-dim); font-family: var(--font-mono), var(--font-mono-fallback); font-size: var(--type-label); letter-spacing: 0.08em; text-transform: uppercase; }
 /* Circos as a project-card visual. */
 .project-card__visual .motif--circos { position: absolute; inset: 0; display: grid; place-items: center; padding: 1.5rem; }
@@ -611,6 +624,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @keyframes node-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
 @keyframes circos-spin { to { transform: rotate(360deg); } }
 @keyframes flow-dash { to { stroke-dashoffset: -20; } }
+@keyframes beat { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.4); } }
+@keyframes travel {
+  0% { offset-distance: 0%; opacity: 0; }
+  6%, 94% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
 
 /* --- Motion / a11y -------------------------------------------------- */
 .reveal { animation: rise-in 0.6s var(--easing) both; }
