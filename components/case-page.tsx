@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getLocalizedPath, getProject, getProjects, type Locale, type ProjectCase } from "@/lib/content";
-import { EmailCta } from "./email-cta";
+import { ContactCta } from "./contact-cta";
 import { PageShell } from "./page-shell";
 
 export function CasePage({ locale, slug }: { locale: Locale; slug: string }) {
@@ -29,7 +29,7 @@ export function CasePage({ locale, slug }: { locale: Locale; slug: string }) {
         <MediaGallery project={project} title={labels.media} pending={labels.pending} />
         <CaseSection title={labels.privacy} body={project.privacyNotes} />
         <CaseList title={labels.learning} items={project.lessons} />
-        <div className="contact-panel" style={{ marginTop: "4rem" }}><p className="eyebrow"><span aria-hidden="true">✳</span>{labels.keep}</p><h2>{labels.talk}</h2><EmailCta locale={locale} label={labels.contact} /></div>
+        <div className="contact-panel" style={{ marginTop: "4rem" }}><p className="eyebrow"><span aria-hidden="true">✳</span>{labels.keep}</p><h2>{labels.talk}</h2><ContactCta locale={locale} label={labels.contact} /></div>
         <div className="next-case" style={{ marginTop: "4rem" }}><div><span className="next-case__label">{labels.next}</span><br /><Link className="next-case__link" href={getLocalizedPath(locale, `/work/${next.slug}/`)}>{next.title}<span aria-hidden="true">↗</span></Link></div><Link className="text-link" href={getLocalizedPath(locale, "/work/")}>{labels.all}<span aria-hidden="true">↗</span></Link></div>
       </div></div></section>
     </article>

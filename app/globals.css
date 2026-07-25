@@ -527,6 +527,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .next-case__link:hover { color: var(--accent); }
 .next-case__link span { color: var(--accent); font-family: var(--font-sans), var(--font-body-fallback); font-size: 1rem; }
 
+/* --- Contact page ---------------------------------------------------- */
+/* Form fields stay readable at a comfortable measure rather than stretching to
+ * the full 72rem shell. */
+.contact-panel--form { max-width: 52rem; }
+
 /* --- Process page phases -------------------------------------------- */
 .phase-list { display: grid; gap: 1rem; margin-top: 3rem; }
 .phase { display: grid; grid-template-columns: 0.2fr 0.36fr 1fr; gap: 1rem; padding: 1.4rem 0; border-top: 1px solid var(--border); }
