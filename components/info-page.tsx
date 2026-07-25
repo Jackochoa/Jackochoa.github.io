@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getCopy, getLocalizedPath, type Locale } from "@/lib/content";
 import { PageShell } from "./page-shell";
 import { SectionHeading } from "./section-heading";
@@ -6,7 +7,7 @@ export function AboutPage({ locale }: { locale: Locale }) {
   const copy = getCopy(locale).about;
   return <PageShell locale={locale} currentPath={getLocalizedPath(locale, "/about/")}>
     <section className="page-hero"><div className="shell"><p className="eyebrow"><span aria-hidden="true">✳</span>{copy.kicker}</p><h1>{copy.title}</h1><p className="page-hero__intro">{copy.intro}</p></div></section>
-    <section className="section"><div className="shell about-band"><div className="portrait-placeholder">{copy.portrait}</div><div className="about-band__body"><p>{copy.body}</p><div className="principles">{copy.principles.map(([title, body]) => <article className="principle" key={title}><h2>{title}</h2><p>{body}</p></article>)}</div></div></div></section>
+    <section className="section"><div className="shell about-band"><div className="about-portrait"><Image src="/images/portrait.png" alt={copy.portrait} width={1254} height={1254} /></div><div className="about-band__body"><p>{copy.body}</p><div className="principles">{copy.principles.map(([title, body]) => <article className="principle" key={title}><h2>{title}</h2><p>{body}</p></article>)}</div></div></div></section>
   </PageShell>;
 }
 
