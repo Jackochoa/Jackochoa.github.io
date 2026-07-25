@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "Person", name: "Jackson Ochoa", url: "https://jacksonochoa.page/en/", jobTitle: "Independent product engineer" },
+    { "@type": "Person", name: "Jackson Ochoa", url: "https://jacksonochoa.page/en/", jobTitle: "Medicine student and independent product engineer" },
     { "@type": "WebSite", name: "Jackson Ochoa", url: "https://jacksonochoa.page/en/", description: "End-to-end web products for complex ideas and operations." },
   ],
 };

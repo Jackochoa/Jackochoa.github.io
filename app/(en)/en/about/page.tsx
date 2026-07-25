@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/site";
 export const metadata: Metadata = pageMetadata({
   locale: "en",
   title: "About",
-  description: "Product thinking with an engineer's follow-through.",
+  description: "Medicine student and independent product engineer working across software, bioinformatics, and operating systems.",
   englishPath: "/en/about/",
   spanishPath: "/sobre-mi/",
 });
