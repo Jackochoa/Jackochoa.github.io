@@ -331,7 +331,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
  * is 16-24px — so the strand runs along the edge and unavoidably grazes it by
  * about 30px. Drop it to a texture at that point rather than hiding it, and
  * keep this independent of the breakpoint below: tablets need it too. */
-.tech-helix__svg--edge { opacity: 0.3; }
+.tech-helix__svg--edge { opacity: 0.55; }
 .tech-helix__strand {
   fill: none; stroke: var(--border-strong); stroke-width: 1.5;
 }
@@ -344,7 +344,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   font-size: 4.6px; font-weight: 700; letter-spacing: -0.04em;
 }
 @media (max-width: 900px) {
-  .tech-helix { opacity: 0.28; }
+  .tech-helix { opacity: 0.34; }
 }
 
 /* --- Project carousel ----------------------------------------------- */
@@ -627,6 +627,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .motif-band { border-block: 1px solid var(--border); background: color-mix(in srgb, var(--surface-2) 92%, transparent); }
 .motif-band__inner { display: grid; place-items: center; gap: 1rem; padding: clamp(2.5rem, 5vw, 4rem) 0; }
 .motif-band .motif--map { max-width: 34rem; }
+.helix-band__visual { width: 100%; max-width: 34rem; overflow: hidden; }
+.helix-band__svg { width: 100%; height: auto; display: block; }
 .motif-band__note { margin: 0; color: var(--text-dim); font-family: var(--font-mono), var(--font-mono-fallback); font-size: var(--type-label); letter-spacing: 0.08em; text-transform: uppercase; }
 /* Circos as a project-card visual. */
 .project-card__visual .motif--circos { position: absolute; inset: 0; display: grid; place-items: center; padding: 1.5rem; }

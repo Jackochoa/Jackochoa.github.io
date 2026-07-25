@@ -19,7 +19,7 @@ const VERTICAL_SPACING = 46;
 const HELIX_ICON_SCALE = 0.72; // keep the 24-unit brand path inside the r=13 badge
 const BADGE_RADIUS = 16; // r=13 badge at its largest z-scale, plus stroke
 const MIN_GUTTER = 96; // narrower than this and there is no room beside the text
-const EDGE_RADIUS = 34; // sliver that runs along the margin when there is no gutter
+const EDGE_RADIUS = 42; // sliver that runs along the margin when there is no gutter
 
 // The stack is repeated a few times so the helix reads as one long, continuous
 // strand instead of running out after a single pass.
