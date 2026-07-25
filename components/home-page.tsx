@@ -1,6 +1,6 @@
 import Link from "next/link";
-import * as icons from "simple-icons";
 import { getCopy, getLocalizedPath, stackGroups, stackNote, stackProof, type Locale, type StackEntry } from "@/lib/content";
+import { iconPath } from "@/lib/icons";
 import { EmailCta } from "./email-cta";
 import { SystemFlow } from "./motifs";
 import { PageShell } from "./page-shell";
@@ -161,11 +161,11 @@ function StackProofList({ locale }: { locale: Locale }) {
 }
 
 function StackIcon({ item }: { item: StackEntry }) {
-  const icon = item.icon ? (icons as Record<string, { path: string; title: string } | undefined>)[item.icon] : undefined;
+  const path = iconPath(item.icon);
   const className = `stack-item${item.declared ? " stack-item--declared" : ""}`;
   return (
     <span className={className} title={item.name}>
-      {icon ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d={icon.path} /></svg> : null}
+      {path ? <svg viewBox="0 0 24 24" aria-hidden="true"><path d={path} /></svg> : null}
       {item.asset ? <svg viewBox="0 0 20 20" aria-hidden="true"><image href={item.asset} x="0" y="0" width="20" height="20" preserveAspectRatio="xMidYMid meet" /></svg> : null}
       {item.name}{item.declared ? "*" : ""}
     </span>

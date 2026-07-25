@@ -1,66 +1,40 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
-import * as icons from "simple-icons";
-import { stackGroups, type StackEntry } from "@/lib/content";
+import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
+import type { HelixBase, HelixRung } from "@/lib/helix";
 
 /* Constant background: a real double helix rendered as 2D-projected 3D math
  * (cos/sin per base, z-depth driving scale/opacity) rather than CSS 3D
  * transforms — that's what makes it read as an actual rotating molecule
- * instead of collapsing into a flat tangle. Base pairs are real stack icons
- * (simple-icons), colored per category. It spins continuously on its own;
- * scrolling adds extra turn AND shifts the helix vertically, so different
- * base pairs drift through view as you read the page — scroll changes what
- * you see, not just whether it moves. Static render (one frame) under
- * prefers-reduced-motion. */
-
-const CATEGORY_VAR: Record<string, string> = {
-  Languages: "var(--cat-lang)",
-  "Web foundations": "var(--cat-web)",
-  Frontend: "var(--cat-frontend)",
-  Backend: "var(--cat-backend)",
-  Data: "var(--cat-data)",
-  "Delivery / collaboration": "var(--cat-delivery)",
-  "Cloud / Infra": "var(--cat-cloud)",
-};
-
-type Rung = { left: StackEntry; right: StackEntry | null; color: string };
-
-// Repeated a few times so the helix reads as one long, continuous strand
-// instead of running out after one pass through the stack.
-const REPEAT_COUNT = 4;
-
-function buildRungs(): Rung[] {
-  const single: Rung[] = [];
-  for (const group of stackGroups) {
-    const items = group.items;
-    const color = CATEGORY_VAR[group.label.en] ?? "var(--accent)";
-    for (let i = 0; i < items.length; i += 2) {
-      single.push({ left: items[i], right: items[i + 1] ?? null, color });
-    }
-  }
-  const rungs: Rung[] = [];
-  for (let cycle = 0; cycle < REPEAT_COUNT; cycle++) rungs.push(...single);
-  return rungs;
-}
+ * instead of collapsing into a flat tangle. Base pairs are real stack icons,
+ * colored per category, resolved server-side in `lib/helix.ts` and handed in
+ * as props. It spins continuously on its own; scrolling adds extra turn AND
+ * shifts the helix vertically, so different base pairs drift through view as
+ * you read the page — scroll changes what you see, not just whether it moves.
+ * Static render (one frame) under prefers-reduced-motion. */
 
 const TWIST_PER_RUNG = (34.3 * Math.PI) / 180; // real B-DNA twist
 const SPIN_SPEED = 0.00022; // rad/ms, idle rotation
 const VERTICAL_SPACING = 46;
 const HELIX_ICON_SCALE = 0.72; // keep the 24-unit brand path inside the r=13 badge
 
-function iconPath(slug: string | null): string | null {
-  if (!slug) return null;
-  return (icons as Record<string, { path: string } | undefined>)[slug]?.path ?? null;
-}
+// The stack is repeated a few times so the helix reads as one long, continuous
+// strand instead of running out after a single pass.
+const REPEAT_COUNT = 4;
 
-function badgeLabel(entry: StackEntry): string {
-  if (entry.badge) return entry.badge;
-  return entry.name.replace(/[^A-Za-z0-9]/g, "").toUpperCase().slice(0, 4);
-}
+// The value never changes after hydration, so there is nothing to subscribe to.
+const subscribeNever = () => () => {};
 
-export function TechHelix() {
-  const rungs = useMemo(() => buildRungs(), []);
+export function TechHelix({ basePairs }: { basePairs: HelixRung[] }) {
+  const rungs = useMemo(
+    () => Array.from({ length: REPEAT_COUNT }, () => basePairs).flat(),
+    [basePairs]
+  );
+  /* Every base pair is positioned from `useEffect`, so a server-rendered helix
+   * is just a pile of icons in the corner until hydration — and ~230 KB of
+   * inline SVG in every page's HTML. Render it after mount instead. */
+  const mounted = useSyncExternalStore(subscribeNever, () => true, () => false);
+
   const svgRef = useRef<SVGSVGElement>(null);
   const strandARef = useRef<SVGPathElement>(null);
   const strandBRef = useRef<SVGPathElement>(null);
@@ -70,6 +44,7 @@ export function TechHelix() {
   const layerRef = useRef<SVGGElement>(null);
 
   useEffect(() => {
+    if (!mounted) return;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let angle = 0;
     let raf = 0;
@@ -165,7 +140,9 @@ export function TechHelix() {
     };
     raf = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(raf);
-  }, [rungs]);
+  }, [rungs, mounted]);
+
+  if (!mounted) return <div className="tech-helix" aria-hidden="true" />;
 
   return (
     <div className="tech-helix" aria-hidden="true">
@@ -187,7 +164,7 @@ export function TechHelix() {
             <HelixBadge
               key={`a-${i}-${rung.left.name}`}
               refCb={(el) => { badgeARefs.current[i] = el; }}
-              entry={rung.left}
+              base={rung.left}
               color={rung.color}
             />
           ))}
@@ -196,7 +173,7 @@ export function TechHelix() {
               <HelixBadge
                 key={`b-${i}-${rung.right.name}`}
                 refCb={(el) => { badgeBRefs.current[i] = el; }}
-                entry={rung.right}
+                base={rung.right}
                 color={rung.color}
               />
             ) : null
@@ -207,19 +184,18 @@ export function TechHelix() {
   );
 }
 
-function HelixBadge({ refCb, entry, color }: { refCb: (el: SVGGElement | null) => void; entry: StackEntry; color: string }) {
-  const path = iconPath(entry.icon);
+function HelixBadge({ refCb, base, color }: { refCb: (el: SVGGElement | null) => void; base: HelixBase; color: string }) {
   return (
     <g ref={refCb} className="tech-helix__badge">
       <circle r="13" style={{ stroke: color }} />
-      {path ? (
+      {base.path ? (
         <g transform={`scale(${HELIX_ICON_SCALE}) translate(-12, -12)`}>
-          <path d={path} style={{ fill: color }} />
+          <path d={base.path} style={{ fill: color }} />
         </g>
-      ) : entry.asset ? (
-        <image href={entry.asset} x="-10" y="-10" width="20" height="20" preserveAspectRatio="xMidYMid meet" />
+      ) : base.asset ? (
+        <image href={base.asset} x="-10" y="-10" width="20" height="20" preserveAspectRatio="xMidYMid meet" />
       ) : (
-        <text x="0" y="0" textAnchor="middle" dominantBaseline="central" style={{ fill: color }}>{badgeLabel(entry)}</text>
+        <text x="0" y="0" textAnchor="middle" dominantBaseline="central" style={{ fill: color }}>{base.label}</text>
       )}
     </g>
   );

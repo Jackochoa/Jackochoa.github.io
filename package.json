@@ -18,10 +18,10 @@
     "next": "^16.2.9",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "simple-icons": "16.27.0",
-    "zod": "^4.0.0"
+    "simple-icons": "16.27.0"
   },
   "devDependencies": {
+    "zod": "^4.0.0",
     "@types/node": "^24.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

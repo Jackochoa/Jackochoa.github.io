@@ -1,42 +1,43 @@
-import { z } from "zod";
+/* This module is imported by client components, so it must stay free of
+ * runtime dependencies. The shape below is validated against a Zod schema in
+ * `content.schema.ts`, which only the test suite loads. */
 
-export const LocaleSchema = z.enum(["en", "es"]);
-export type Locale = z.infer<typeof LocaleSchema>;
+export type Locale = "en" | "es";
 
-const ProjectSchema = z.object({
-  slug: z.string().min(1),
-  eyebrow: z.string().min(1),
-  title: z.string().min(1),
-  summary: z.string().min(1),
-  outcome: z.string().min(1),
-  category: z.string().min(1),
-  stack: z.array(z.string()).min(1),
-  accent: z.enum(["moss", "clay", "sun", "sage"]),
-  scope: z.string().min(1),
-  status: z.string().min(1),
-  projectType: z.string().min(1),
-  role: z.string().min(1),
-  services: z.array(z.string()).min(1),
-  proof: z.array(z.string()).min(1),
-  media: z.array(z.object({
-    path: z.string().min(1),
-    type: z.string().min(1),
-    alt: z.string().min(1),
-    caption: z.string().min(1),
-    aspectRatio: z.string().min(1),
-  })),
-  architectureSummary: z.string().min(1),
-  privacyNotes: z.string().min(1),
-  year: z.string().min(1),
-  problem: z.string().min(1),
-  decisions: z.array(z.string()).min(2),
-  evidence: z.array(z.string()).min(2),
-  lessons: z.array(z.string()).min(2),
-  visualLabel: z.string().min(1),
-  visualDetail: z.string().min(1),
-});
+export type ProjectMedia = {
+  path: string;
+  type: string;
+  alt: string;
+  caption: string;
+  aspectRatio: string;
+};
 
-export type ProjectCase = z.infer<typeof ProjectSchema>;
+export type ProjectCase = {
+  slug: string;
+  eyebrow: string;
+  title: string;
+  summary: string;
+  outcome: string;
+  category: string;
+  stack: string[];
+  accent: "moss" | "clay" | "sun" | "sage";
+  scope: string;
+  status: string;
+  projectType: string;
+  role: string;
+  services: string[];
+  proof: string[];
+  media: ProjectMedia[];
+  architectureSummary: string;
+  privacyNotes: string;
+  year: string;
+  problem: string;
+  decisions: string[];
+  evidence: string[];
+  lessons: string[];
+  visualLabel: string;
+  visualDetail: string;
+};
 
 type ProjectSlug = "e-grua" | "briquette-lms" | "rust-dashboard" | "mitocircos-studio";
 
@@ -200,10 +201,6 @@ const projects = {
     { slug: "mitocircos-studio", eyebrow: "Visualización científica", title: "MitoCircos Studio", summary: "Un estudio visual exploratorio para datasets mitocondriales, con gráficos interactivos que vuelven más fácil inspeccionar estructura biológica.", outcome: "Dar a los datos científicos una gramática visual que se pueda explorar, no solo exportar.", category: "Ciencia", stack: ["React", "TypeScript", "Vite", "D3", "Tailwind CSS", "Vitest"], accent: "sun", scope: "Concepto de producto y visualización", year: "2026", problem: "Los datos biológicos densos exigen sostener demasiada estructura en la cabeza. La interfaz debía mostrar relaciones, patrones y contexto juntos.", decisions: ["Tratar la visualización como lectura guiada, no como catálogo de gráficos.", "Mantener transformaciones explícitas para que las conclusiones sean inspeccionables.", "Usar interacción para revelar detalle progresivamente."], evidence: ["Base React y D3 para visuales científicos interactivos.", "Superficie de gráficos e iconografía reutilizable para una herramienta enfocada.", "Dirección visual que conecta rigor científico con interacción cercana."], lessons: ["Las herramientas científicas generan confianza cuando su historia visual se puede inspeccionar.", "Una buena interfaz de datos deja lugar a la curiosidad sin ocultar la estructura."], visualLabel: "Estructura de datos", visualDetail: "Patrones · contexto · exploración" , status: "Proyecto científico funcional", projectType: "Herramienta científica", role: "Diseño y desarrollo de la herramienta", services: ["Diseño de herramientas científicas", "Visualización de datos", "Desarrollo frontend"], proof: ["Visualizaciones interactivas con React y D3 para datasets mitocondriales", "Transformaciones explícitas e interacción progresiva"], media: projectMedia.es["mitocircos-studio"], architectureSummary: "Una interfaz científica enfocada que combina transformaciones de datos explícitas con superficies de visualización D3 interactivas.", privacyNotes: "No se incluyen datos de investigación inéditos ni datasets privados." }
   ],
 } satisfies Record<Locale, ProjectCase[]>;
-
-for (const locale of ["en", "es"] as const) {
-  for (const project of projects[locale]) ProjectSchema.parse(project);
-}
 
 /* Stack grouped by category. `icon` is a simple-icons slug (mapped in the
  * component), `asset` is a local brand mark when the icon set has no exact

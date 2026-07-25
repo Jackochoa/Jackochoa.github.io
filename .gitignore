@@ -13,3 +13,6 @@ cookies.txt
 *.secret
 *.tsbuildinfo
 .atl/
+
+# Source captures; optimized copies live in public/images/
+IMG/

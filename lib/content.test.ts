@@ -1,9 +1,18 @@
-import * as icons from "simple-icons";
 import { describe, expect, it } from "vitest";
 import { getAlternateLocale, getEnglishPathFromSpanish, getLocalizedPath, getProject, getProjects, stackGroups, stackProof } from "./content";
 import type { ProjectCase } from "./content";
+import { ProjectSchema } from "./content.schema";
+import { iconPath } from "./icons";
 
 describe("portfolio content", () => {
+  it("matches the project schema in both locales", () => {
+    for (const locale of ["en", "es"] as const) {
+      for (const project of getProjects(locale)) {
+        expect(() => ProjectSchema.parse(project)).not.toThrow();
+      }
+    }
+  });
+
   it("keeps ordered, equivalent case studies in both locales", () => {
     const expectedSlugs = ["e-grua", "briquette-lms", "rust-dashboard", "mitocircos-studio"];
     const enProjects = getProjects("en");
@@ -87,7 +96,7 @@ describe("portfolio content", () => {
   it("keeps every declared Simple Icons reference resolvable", () => {
     const unresolved = stackGroups
       .flatMap((group) => group.items)
-      .filter((item) => item.icon !== null && !(icons as Record<string, unknown>)[item.icon])
+      .filter((item) => item.icon !== null && iconPath(item.icon) === null)
       .map((item) => item.name);
 
     expect(unresolved).toEqual([]);
