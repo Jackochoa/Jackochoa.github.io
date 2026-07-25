@@ -674,7 +674,9 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .stack-groups { grid-template-columns: 1fr; }
   .stack-proof__header { grid-template-columns: 1fr; gap: 0.5rem; }
   .project-card--featured { display: block; }
-  .project-card--featured .project-card__visual { border-right: 0; border-bottom: 1px solid var(--border); min-height: 15rem; }
+  .project-card--featured .project-card__visual { border-right: 0; border-bottom: 1px solid var(--border); min-height: 16.5rem; }
+  .project-card__cover { object-position: top left; }
+  .principle { grid-template-columns: 1fr; gap: 0.35rem; }
   .process-grid, .process-grid--five { grid-template-columns: repeat(2, 1fr); }
   .process-step:nth-child(2n) { border-right: 0; }
   .domain-grid { grid-template-columns: 1fr; }
@@ -684,6 +686,16 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .phase__artifact { grid-column: 1 / -1; border-left: 0; padding-left: 0; margin-top: 0.75rem; }
   .site-footer__grid { grid-template-columns: 1fr 1fr; }
   .footer-meta { grid-column: span 2; align-items: flex-start; text-align: left; gap: 0.25rem; }
+}
+@media (max-width: 640px) {
+  .motif--map { width: 100vw; margin-left: calc(50% - 50vw); padding: 0 1rem; }
+  .motif--map .motif__strand { stroke-width: 3.5; }
+  .motif--map .motif__block { stroke-width: 2.5; }
+  .motif--map .motif__noise { stroke-width: 1.8; opacity: 0.85; }
+  .motif--map .motif__node { r: 5px; }
+  .motif--map .motif__node--noise { r: 4px; }
+  .motif--map .motif__ring--map { stroke-width: 3; }
+  .motif--map .motif__tick { stroke-width: 2.5; }
 }
 @media (max-width: 500px) {
   .work-grid { grid-template-columns: 1fr; }
@@ -696,6 +708,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
     border-bottom: 1px solid var(--border);
   }
   .service-card h3 { margin-top: 1.25rem; }
+  .carousel__item { flex: 0 0 86%; }
+  .carousel__item .project-card__visual { min-height: 12rem; }
   .stack-group { grid-template-columns: 1fr; gap: 0.5rem; }
   .stack-proof__list { grid-template-columns: 1fr; }
   .process-step { min-height: auto; border-right: 0; border-bottom: 1px solid var(--border); }
