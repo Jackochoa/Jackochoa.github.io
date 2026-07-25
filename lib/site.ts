@@ -25,6 +25,9 @@ export const siteBrandMetadata = {
   manifest: "/site.webmanifest",
 } satisfies Pick<Metadata, "icons" | "manifest">;
 
+// #B55239 is the personal accent — the portrait's jacket, echoed in
+// motifs.tsx's TransformationMap. Reserved as a single warm point against the
+// teal system, not a wash across the site.
 export const siteViewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#B55239" },
