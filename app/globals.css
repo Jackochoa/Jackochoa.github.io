@@ -548,10 +548,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
 
 /* --- Process page phases -------------------------------------------- */
 .phase-list { display: grid; gap: 1rem; margin-top: 3rem; }
-.phase { display: grid; grid-template-columns: 0.2fr 0.36fr 1fr; gap: 1rem; padding: 1.4rem 0; border-top: 1px solid var(--border); }
+.phase { display: grid; grid-template-columns: 0.18fr 0.32fr 0.75fr 0.6fr; gap: 1.25rem; align-items: start; padding: 1.4rem 0; border-top: 1px solid var(--border); }
 .phase__number { color: var(--accent); font-size: var(--type-label); font-weight: 700; }
 .phase h2 { margin: 0; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
 .phase p { max-width: 31rem; margin: 0; color: var(--text-mid); }
+/* The concrete deliverable per phase — what the reviewer sees, not just what I did. */
+.phase__artifact { border-left: 1px solid var(--border); padding-left: 1.25rem; }
+.phase__artifact-label { display: block; margin-bottom: 0.35rem; color: var(--text-dim); font-size: var(--type-label); font-weight: 700; text-transform: uppercase; }
+.phase__artifact strong { display: block; margin-bottom: 0.3rem; font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; }
+.phase__artifact p { margin: 0; max-width: none; color: var(--text-mid); font-size: var(--type-body-sm); }
 
 /* --- Privacy prose list --------------------------------------------- */
 .prose-list { display: grid; gap: 1rem; max-width: 47rem; margin: 3rem 0 0; padding: 0; list-style: none; }
@@ -649,6 +654,7 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .case-meta { grid-template-columns: 1fr; gap: 0.7rem; }
   .phase { grid-template-columns: 0.16fr 1fr; }
   .phase p { grid-column: 2; }
+  .phase__artifact { grid-column: 1 / -1; border-left: 0; padding-left: 0; margin-top: 0.75rem; }
   .site-footer__grid { grid-template-columns: 1fr 1fr; }
   .footer-meta { grid-column: span 2; align-items: flex-start; text-align: left; gap: 0.25rem; }
 }
