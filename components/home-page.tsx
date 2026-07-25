@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { getCopy, getLocalizedPath, stackGroups, stackNote, stackProof, type Locale, type StackEntry } from "@/lib/content";
 import { iconPath } from "@/lib/icons";
+import { buildBasePairs } from "@/lib/helix";
 import { ContactCta } from "./contact-cta";
+import { HelixBand } from "./helix-band";
 import { TransformationMap } from "./motifs";
 import { PageShell } from "./page-shell";
 import { ProjectCarousel } from "./project-carousel";
@@ -27,6 +29,8 @@ export function HomePage({ locale }: { locale: Locale }) {
           </div>
         </div>
       </section>
+
+      <HelixBand basePairs={buildBasePairs()} locale={locale} />
 
       <section className="section">
         <div className="shell">
